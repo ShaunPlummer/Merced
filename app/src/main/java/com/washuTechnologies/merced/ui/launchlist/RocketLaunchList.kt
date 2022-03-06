@@ -1,6 +1,6 @@
 package com.washuTechnologies.merced.ui.launchlist
 
-import android.content.res.Configuration
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -26,6 +26,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.washuTechnologies.merced.api.Result
 import com.washuTechnologies.merced.api.launches.RocketLaunch
+import com.washuTechnologies.merced.ui.components.MercedScaffold
+import com.washuTechnologies.merced.ui.theme.MercedTheme
 
 /**
  * Display a list of rocket launches.
@@ -38,10 +40,10 @@ fun RocketLaunchListScreen(viewModel: LaunchListViewModel = viewModel()) {
 
 @Composable
 fun RocketLaunchListScreen(launchList: Result<Array<RocketLaunch>>) {
-    Column(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        Surface {
+    MercedScaffold {
+        Column(
+            modifier = Modifier.fillMaxSize()
+        ) {
             Log.d("UI", "RocketLaunchList collect $launchList")
             when (launchList) {
                 is Result.Success -> {
@@ -100,26 +102,26 @@ private fun LaunchNumber(modifier: Modifier = Modifier, flightNumber: Int) {
 @Preview(
     name = "Dark theme Launch List",
     showSystemUi = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
+    uiMode = UI_MODE_NIGHT_YES
 )
 @Preview(
     name = "Light theme Launch List in German",
-    showSystemUi = true,
     locale = "DE",
-    fontScale = 2f,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
+    fontScale = 2f
 )
 @Composable
 private fun Preview() {
-    RocketLaunchListScreen(
-        launchList = Result.Success(
-            arrayOf(
-                RocketLaunch(1, "FalconSat", "2006-03-24T22:30:00.000Z"),
-                RocketLaunch(2, "DemoSat", "2007-03-21T01:10:00.000Z"),
-                RocketLaunch(3, "Trailblazer", "2008-09-28T23:15:00.000Z")
+    MercedTheme {
+        RocketLaunchListScreen(
+            launchList = Result.Success(
+                arrayOf(
+                    RocketLaunch(1, "FalconSat", "2006-03-24T22:30:00.000Z"),
+                    RocketLaunch(2, "DemoSat", "2007-03-21T01:10:00.000Z"),
+                    RocketLaunch(3, "Trailblazer", "2008-09-28T23:15:00.000Z")
+                )
             )
         )
-    )
+    }
 }
 
 @Preview(
@@ -127,7 +129,7 @@ private fun Preview() {
 )
 @Composable
 private fun LoadingPreview() {
-    Column {
+    MercedTheme {
         RocketLaunchListScreen(
             launchList = Result.Loading
         )
@@ -139,7 +141,7 @@ private fun LoadingPreview() {
 )
 @Composable
 private fun ErrorPreview() {
-    Column {
+    MercedTheme {
         RocketLaunchListScreen(
             launchList = Result.Error
         )
