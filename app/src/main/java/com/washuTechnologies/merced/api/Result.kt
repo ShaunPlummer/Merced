@@ -3,20 +3,20 @@ package com.washuTechnologies.merced.api
 /**
  * Sealed class to model the result of an operation.
  */
-sealed class Result<out T>(val result: T?) {
+sealed class Result<out T : Any> {
 
     /**
-     * Operation success containing [result].
+     * Operation success containing the [result] of the operation.
      */
-    class Success<out T>(data: T) : Result<T>(data)
+    data class Success<out T : Any>(val result: T) : Result<T>()
 
     /**
      * Operation failure.
      */
-    class Error : Result<Nothing>(null)
+    object Loading : Result<Nothing>()
 
     /**
      * Operation has started but not completed.
      */
-    class Loading : Result<Nothing>(null)
+    object Error : Result<Nothing>()
 }
