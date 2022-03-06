@@ -19,11 +19,11 @@ class RocketLaunchRepository @Inject constructor(private val launchesApi: Launch
     /**
      * Retrieve a list of rocket launches.
      */
-    fun getLaunchList(): Flow<Result<List<RocketLaunch>>> = flow {
-        emit(Result.Loading())
+    fun getLaunchList(): Flow<Result<Array<RocketLaunch>>> = flow {
+        emit(Result.Loading)
         val list = launchesApi.getRocketLaunchList()
         emit(Result.Success(list))
     }.catch {
-        emit(Result.Error())
+        emit(Result.Error)
     }.retry(MAX_RETRY)
 }
