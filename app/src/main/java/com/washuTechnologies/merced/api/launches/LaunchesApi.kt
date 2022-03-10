@@ -1,6 +1,5 @@
 package com.washuTechnologies.merced.api.launches
 
-
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
