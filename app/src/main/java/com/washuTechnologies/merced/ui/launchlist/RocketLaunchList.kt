@@ -14,8 +14,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
@@ -95,7 +95,10 @@ private fun LaunchNumber(modifier: Modifier = Modifier, flightNumber: Int) {
                 .clip(CircleShape)
                 .background(MaterialTheme.colors.primary)
         )
-        Text(text = "$flightNumber")
+        Text(
+            text = "$flightNumber",
+            color = contentColorFor(backgroundColor = MaterialTheme.colors.primary)
+        )
     }
 }
 
@@ -124,9 +127,7 @@ private fun Preview() {
     }
 }
 
-@Preview(
-    showSystemUi = true
-)
+@Preview(showSystemUi = true)
 @Composable
 private fun LoadingPreview() {
     MercedTheme {
@@ -136,9 +137,7 @@ private fun LoadingPreview() {
     }
 }
 
-@Preview(
-    showSystemUi = true
-)
+@Preview(showSystemUi = true)
 @Composable
 private fun ErrorPreview() {
     MercedTheme {
