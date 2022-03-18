@@ -1,7 +1,6 @@
 package com.washuTechnologies.merced.ui.launchlist
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,35 +23,35 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.washuTechnologies.merced.api.Result
 import com.washuTechnologies.merced.api.launches.RocketLaunch
 import com.washuTechnologies.merced.ui.components.MercedScaffold
 import com.washuTechnologies.merced.ui.theme.MercedTheme
+import timber.log.Timber
 
 /**
  * Display a list of rocket launches.
  */
 @Composable
 fun RocketLaunchListScreen(viewModel: LaunchListViewModel = viewModel()) {
-    val list = viewModel.launchList.collectAsState()
+    val list = viewModel.uiState.collectAsState()
     RocketLaunchListScreen(launchList = list.value)
 }
 
 @Composable
-fun RocketLaunchListScreen(launchList: Result<Array<RocketLaunch>>) {
+fun RocketLaunchListScreen(launchList: LaunchListUiState) {
     MercedScaffold {
         Column(
             modifier = Modifier.fillMaxSize()
         ) {
-            Log.d("UI", "RocketLaunchList collect $launchList")
+            Timber.d("RocketLaunchList collect $launchList")
             when (launchList) {
-                is Result.Success -> {
-                    LaunchList(launchList = launchList.result)
+                is LaunchListUiState.Success -> {
+                    LaunchList(launchList = launchList.launchList)
                 }
-                is Result.Error -> {
+                is LaunchListUiState.Error -> {
                     Text(text = "Error")
                 }
-                is Result.Loading -> {
+                is LaunchListUiState.Loading -> {
                     Text(text = "Loading")
                 }
             }
@@ -116,7 +115,7 @@ private fun LaunchNumber(modifier: Modifier = Modifier, flightNumber: Int) {
 private fun Preview() {
     MercedTheme {
         RocketLaunchListScreen(
-            launchList = Result.Success(
+            launchList = LaunchListUiState.Success(
                 arrayOf(
                     RocketLaunch(1, "FalconSat", "2006-03-24T22:30:00.000Z"),
                     RocketLaunch(2, "DemoSat", "2007-03-21T01:10:00.000Z"),
@@ -132,7 +131,7 @@ private fun Preview() {
 private fun LoadingPreview() {
     MercedTheme {
         RocketLaunchListScreen(
-            launchList = Result.Loading
+            launchList = LaunchListUiState.Loading
         )
     }
 }
@@ -142,7 +141,7 @@ private fun LoadingPreview() {
 private fun ErrorPreview() {
     MercedTheme {
         RocketLaunchListScreen(
-            launchList = Result.Error
+            launchList = LaunchListUiState.Error
         )
     }
 }
