@@ -24,6 +24,10 @@ class LaunchListViewModel @Inject constructor(
 
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<LaunchListUiState>(LaunchListUiState.Loading)
+
+    /**
+     * Exposes the current state of the launch list screen.
+     */
     val uiState: StateFlow<LaunchListUiState>
         get() = _uiState
 
