@@ -17,7 +17,7 @@ interface LaunchesApi {
      * Retrieve the complete list of rocket launches.
      */
     @GET("launches")
-    suspend fun getRocketLaunchList(): List<RocketLaunch>
+    suspend fun getRocketLaunchList(): Array<RocketLaunch>
 
     companion object {
 
