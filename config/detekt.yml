@@ -116,6 +116,8 @@ naming:
       - '**/jsTest/**'
       - '**/iosTest/**'
       - '**/ui/theme/**'
+      - '**/ui/**/*Screen.kt'
+      - '**/ui/**/MercedScaffold.kt'
   TopLevelPropertyNaming:
     constantPattern: '[a-z][_A-Za-z0-9]*|[A-Z][_A-Z0-9]*'
   InvalidPackageDeclaration:
@@ -251,7 +253,8 @@ style:
     active: true
   UnusedPrivateMember:
     active: true
-    allowedNames: '(_|ignored|expected)'
+    allowedNames: '(_|ignored|expected|Preview)'
+    ignoreAnnotated: ['Preview']
   UseAnyOrNoneInsteadOfFind:
     active: true
   UseCheckOrError:
