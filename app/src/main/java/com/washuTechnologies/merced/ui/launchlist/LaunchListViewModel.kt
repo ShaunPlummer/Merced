@@ -21,7 +21,6 @@ import javax.inject.Inject
 class LaunchListViewModel @Inject constructor(
     launchRepository: RocketLaunchRepository,
     @IoDispatcher dispatcher: CoroutineDispatcher
-
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<LaunchListUiState>(LaunchListUiState.Loading)
 
