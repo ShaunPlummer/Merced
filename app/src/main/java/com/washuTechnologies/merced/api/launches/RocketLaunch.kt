@@ -8,6 +8,8 @@ import com.squareup.moshi.JsonClass
  */
 @JsonClass(generateAdapter = true)
 data class RocketLaunch(
+    @Json(name = "id")
+    val id: String,
     @Json(name = "flight_number")
     val flightNumber: Int,
     @Json(name = "name")

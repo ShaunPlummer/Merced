@@ -1,6 +1,5 @@
 package com.washuTechnologies.merced.ui.navigation
 
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -9,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.washuTechnologies.merced.ui.launchdetail.RocketLaunchDetailScreen
 import com.washuTechnologies.merced.ui.launchlist.RocketLaunchListScreen
 
 @Composable
@@ -33,7 +33,7 @@ fun MercedNavGraph(
                 type = NavType.StringType
             })
         ) {
-            Text("Rocket flight number is ${it.arguments?.getInt(Screen.LaunchDetail.launchDetailKey)}")
+            RocketLaunchDetailScreen()
         }
     }
 }

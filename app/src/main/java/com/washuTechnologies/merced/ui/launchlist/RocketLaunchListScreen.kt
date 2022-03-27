@@ -2,6 +2,7 @@ package com.washuTechnologies.merced.ui.launchlist
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,47 +21,65 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.washuTechnologies.merced.R
 import com.washuTechnologies.merced.api.launches.RocketLaunch
 import com.washuTechnologies.merced.ui.theme.MercedTheme
+import com.washuTechnologies.merced.util.PreviewData
 import timber.log.Timber
 
 /**
  * Display a list of rocket launches.
  */
 @Composable
-fun RocketLaunchListScreen(viewModel: LaunchListViewModel = hiltViewModel()) {
+fun RocketLaunchListScreen(
+    viewModel: LaunchListViewModel = hiltViewModel(),
+    onLaunchSelected: (String) -> Unit
+) {
     val list = viewModel.uiState.collectAsState()
-    RocketLaunchListScreen(launchList = list.value)
+    RocketLaunchListScreen(launchList = list.value, onLaunchSelected = onLaunchSelected)
 }
 
 @Composable
-fun RocketLaunchListScreen(launchList: LaunchListUiState) {
+fun RocketLaunchListScreen(
+    launchList: LaunchListUiState,
+    onLaunchSelected: (String) -> Unit = {}
+) {
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        Timber.d("RocketLaunchList collect $launchList")
         when (launchList) {
             is LaunchListUiState.Success -> {
-                LaunchList(launchList = launchList.launchList)
+                LaunchList(launchList = launchList.launchList, onLaunchSelected)
             }
             is LaunchListUiState.Error -> {
-                Text(text = "Error")
+                Text(text = stringResource(id = R.string.error_generic_message))
             }
             is LaunchListUiState.Loading -> {
-                Text(text = "Loading")
+                Text(text = stringResource(id = R.string.loading_generic_message))
             }
         }
     }
 }
 
 @Composable
-private fun LaunchList(launchList: Array<RocketLaunch>) {
+private fun LaunchList(
+    launchList: Array<RocketLaunch>,
+    onLaunchSelected: (String) -> Unit
+) {
     LazyColumn {
         items(items = launchList) { item ->
-            LaunchSummary(launch = item)
+            LaunchSummary(
+                modifier = Modifier.clickable {
+                    val selectedId = item.id
+                    Timber.d("Flight id $selectedId selected")
+                    onLaunchSelected(selectedId)
+                },
+                launch = item
+            )
         }
     }
 }
@@ -112,13 +131,7 @@ private fun LaunchNumber(modifier: Modifier = Modifier, flightNumber: Int) {
 private fun Preview() {
     MercedTheme {
         RocketLaunchListScreen(
-            launchList = LaunchListUiState.Success(
-                arrayOf(
-                    RocketLaunch(1, "FalconSat", "2006-03-24T22:30:00.000Z"),
-                    RocketLaunch(2, "DemoSat", "2007-03-21T01:10:00.000Z"),
-                    RocketLaunch(3, "Trailblazer", "2008-09-28T23:15:00.000Z")
-                )
-            )
+            launchList = LaunchListUiState.Success(PreviewData.launchList)
         )
     }
 }
