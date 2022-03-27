@@ -1,4 +1,4 @@
-package com.washuTechnologies.merced.ui.launchlist
+package com.washuTechnologies.merced.util
 
 import com.washuTechnologies.merced.api.launches.RocketLaunch
 
@@ -6,6 +6,12 @@ import com.washuTechnologies.merced.api.launches.RocketLaunch
  * Sample rocket launch data for use in testing.
  */
 object LaunchSampleData {
+
+    /**
+     * Sample rocket launch.
+     */
+    val rocketLaunch: RocketLaunch
+        get() = sampleLaunches.first()
 
     /**
      * Sample list of rocket launches.

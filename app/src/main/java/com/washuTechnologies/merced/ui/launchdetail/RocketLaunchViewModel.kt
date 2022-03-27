@@ -22,8 +22,8 @@ import javax.inject.Inject
 @HiltViewModel
 class RocketLaunchViewModel @Inject constructor(
     launchRepository: RocketLaunchRepository,
-    @IoDispatcher dispatcher: CoroutineDispatcher,
-    savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle,
+    @IoDispatcher dispatcher: CoroutineDispatcher
 ) : ViewModel() {
     private val flightNumber: String = savedStateHandle.get<String>(
         Screen.LaunchDetail.launchIdKey
