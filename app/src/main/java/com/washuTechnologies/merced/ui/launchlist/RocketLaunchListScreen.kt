@@ -22,9 +22,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.washuTechnologies.merced.api.launches.RocketLaunch
-import com.washuTechnologies.merced.ui.components.MercedScaffold
 import com.washuTechnologies.merced.ui.theme.MercedTheme
 import timber.log.Timber
 
@@ -32,28 +31,26 @@ import timber.log.Timber
  * Display a list of rocket launches.
  */
 @Composable
-fun RocketLaunchListScreen(viewModel: LaunchListViewModel = viewModel()) {
+fun RocketLaunchListScreen(viewModel: LaunchListViewModel = hiltViewModel()) {
     val list = viewModel.uiState.collectAsState()
     RocketLaunchListScreen(launchList = list.value)
 }
 
 @Composable
 fun RocketLaunchListScreen(launchList: LaunchListUiState) {
-    MercedScaffold {
-        Column(
-            modifier = Modifier.fillMaxSize()
-        ) {
-            Timber.d("RocketLaunchList collect $launchList")
-            when (launchList) {
-                is LaunchListUiState.Success -> {
-                    LaunchList(launchList = launchList.launchList)
-                }
-                is LaunchListUiState.Error -> {
-                    Text(text = "Error")
-                }
-                is LaunchListUiState.Loading -> {
-                    Text(text = "Loading")
-                }
+    Column(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Timber.d("RocketLaunchList collect $launchList")
+        when (launchList) {
+            is LaunchListUiState.Success -> {
+                LaunchList(launchList = launchList.launchList)
+            }
+            is LaunchListUiState.Error -> {
+                Text(text = "Error")
+            }
+            is LaunchListUiState.Loading -> {
+                Text(text = "Loading")
             }
         }
     }
