@@ -25,7 +25,7 @@ class RocketLaunchViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     @IoDispatcher dispatcher: CoroutineDispatcher
 ) : ViewModel() {
-    private val flightNumber: String = savedStateHandle.get<String>(
+    private val launchId: String = savedStateHandle.get<String>(
         Screen.LaunchDetail.launchIdKey
     ) ?: ""
 
@@ -39,12 +39,12 @@ class RocketLaunchViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(dispatcher) {
-            if (flightNumber.isBlank()) {
+            if (launchId.isBlank()) {
                 Timber.e("Unable to show launch info for a blank id")
                 _uiState.emit(RocketLaunchUiState.InvalidId)
                 return@launch
             }
-            launchRepository.getRocketLaunch(flightNumber).collect {
+            launchRepository.getRocketLaunch(launchId).collect {
                 when (it) {
                     is Result.Success -> _uiState.emit(RocketLaunchUiState.Success(it.result))
                     is Result.Loading -> _uiState.emit(RocketLaunchUiState.Loading)

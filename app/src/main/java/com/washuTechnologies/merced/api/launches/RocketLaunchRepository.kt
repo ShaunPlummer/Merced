@@ -33,13 +33,13 @@ class RocketLaunchRepository @Inject constructor(private val launchesApi: Launch
     /**
      * Retrieve information about a specific launch using its flight number.
      */
-    fun getRocketLaunch(flightNumber: String): Flow<Result<RocketLaunch>> = flow {
+    fun getRocketLaunch(launchId: String): Flow<Result<RocketLaunch>> = flow {
         emit(Result.Loading)
-        val launch = launchesApi.getRocketLaunch(flightNumber)
-        Timber.d("Retrieved flight ${launch.name}, $flightNumber")
+        val launch = launchesApi.getRocketLaunch(launchId)
+        Timber.d("Retrieved flight ${launch.name}, $launchId")
         emit(Result.Success(launch))
     }.catch { exception ->
-        Timber.e(exception, "Error requesting rocket launch with flight number $flightNumber")
+        Timber.e(exception, "Error requesting rocket launch with flight number $launchId")
         emit(Result.Error)
     }.retry(MAX_RETRY)
 }
