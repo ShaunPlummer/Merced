@@ -8,6 +8,6 @@ import io.mockk.mockk
 object MockHelper {
 
     fun mockApi(rocketLaunch: RocketLaunch) = mockk<LaunchesApi> {
-        coEvery { getRocketLaunch(rocketLaunch.id) } returns LaunchSampleData.rocketLaunch
+        coEvery { getRocketLaunch(rocketLaunch.id) } returns rocketLaunch
     }
 }
