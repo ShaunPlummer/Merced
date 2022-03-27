@@ -28,7 +28,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.washuTechnologies.merced.R
 import com.washuTechnologies.merced.api.launches.RocketLaunch
 import com.washuTechnologies.merced.ui.theme.MercedTheme
-import com.washuTechnologies.merced.util.PreviewData
+import com.washuTechnologies.merced.util.SampleData
 import timber.log.Timber
 
 /**
@@ -131,7 +131,7 @@ private fun LaunchNumber(modifier: Modifier = Modifier, flightNumber: Int) {
 private fun Preview() {
     MercedTheme {
         RocketLaunchListScreen(
-            launchList = LaunchListUiState.Success(PreviewData.launchList)
+            launchList = LaunchListUiState.Success(SampleData.launchList)
         )
     }
 }

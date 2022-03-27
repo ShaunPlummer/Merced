@@ -4,7 +4,7 @@ import com.washuTechnologies.merced.api.Result
 import com.washuTechnologies.merced.api.launches.RocketLaunchRepository
 import com.washuTechnologies.merced.ui.launchlist.LaunchListUiState
 import com.washuTechnologies.merced.ui.launchlist.LaunchListViewModel
-import com.washuTechnologies.merced.util.LaunchSampleData
+import com.washuTechnologies.merced.util.SampleData
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -23,7 +23,7 @@ class LaunchListViewModelUnitTest {
     fun `when a launch list is available then it is returned`() = runTest() {
         val mockRepository = mockk<RocketLaunchRepository> {
             every { getLaunchList() } returns flow {
-                emit(Result.Success(LaunchSampleData.sampleLaunches))
+                emit(Result.Success(SampleData.launchList))
             }
         }
 

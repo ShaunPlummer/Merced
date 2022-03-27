@@ -5,7 +5,7 @@ import com.washuTechnologies.merced.api.launches.RocketLaunch
 /**
  * Mock data for use in compose preview annotations.
  */
-object PreviewData {
+object SampleData {
 
     /**
      * Information about a single rocket launch.
