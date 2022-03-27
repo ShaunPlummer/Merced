@@ -5,7 +5,8 @@ import com.washuTechnologies.merced.api.launches.LaunchesApi
 import com.washuTechnologies.merced.api.launches.RocketLaunchRepository
 import com.washuTechnologies.merced.ui.launchlist.LaunchListUiState
 import com.washuTechnologies.merced.ui.launchlist.LaunchListViewModel
-import com.washuTechnologies.merced.util.LaunchSampleData
+import com.washuTechnologies.merced.util.MockHelper.mockApi
+import com.washuTechnologies.merced.util.SampleData
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -22,9 +23,7 @@ class LaunchListViewModelIntegrationTest {
 
     @Test
     fun `when a launch list is requested then loading is first returned`() = runTest() {
-        val mockApi = mockk<LaunchesApi> {
-            coEvery { getRocketLaunchList() } returns LaunchSampleData.sampleLaunches
-        }
+        val mockApi = mockApi(SampleData.launchList)
 
         LaunchListViewModel(
             RocketLaunchRepository(mockApi),
@@ -37,9 +36,7 @@ class LaunchListViewModelIntegrationTest {
 
     @Test
     fun `when a launch list is available then it is returned`() = runTest() {
-        val mockApi = mockk<LaunchesApi> {
-            coEvery { getRocketLaunchList() } returns LaunchSampleData.sampleLaunches
-        }
+        val mockApi = mockApi(SampleData.launchList)
 
         LaunchListViewModel(
             RocketLaunchRepository(mockApi),

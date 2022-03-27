@@ -6,8 +6,8 @@ import com.washuTechnologies.merced.api.launches.LaunchesApi
 import com.washuTechnologies.merced.api.launches.RocketLaunchRepository
 import com.washuTechnologies.merced.ui.launchdetail.RocketLaunchUiState
 import com.washuTechnologies.merced.ui.launchdetail.RocketLaunchViewModel
-import com.washuTechnologies.merced.util.LaunchSampleData
 import com.washuTechnologies.merced.util.MockHelper.mockApi
+import com.washuTechnologies.merced.util.SampleData
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
@@ -26,7 +26,7 @@ class RocketLaunchDetailViewModelIntegrationTest {
 
     @Test
     fun `when a launch list is requested then loading is first returned`() = runTest() {
-        val expectedLaunch = LaunchSampleData.rocketLaunch
+        val expectedLaunch = SampleData.rocketLaunch
         val mockApi = mockApi(expectedLaunch)
         val mockSavedState = mockk<SavedStateHandle> {
             every { get<String>(any()) } returns expectedLaunch.id
@@ -44,7 +44,7 @@ class RocketLaunchDetailViewModelIntegrationTest {
 
     @Test
     fun `when rocket launch is available then it is returned`() = runTest() {
-        val expectedLaunch = LaunchSampleData.rocketLaunch
+        val expectedLaunch = SampleData.rocketLaunch
         val mockApi = mockApi(expectedLaunch)
         val mockSavedState = mockk<SavedStateHandle> {
             every { get<String>(any()) } returns expectedLaunch.id
@@ -65,7 +65,7 @@ class RocketLaunchDetailViewModelIntegrationTest {
 
     @Test
     fun `when a launch list is not available then it is returned`() = runTest() {
-        val expectedLaunch = LaunchSampleData.rocketLaunch
+        val expectedLaunch = SampleData.rocketLaunch
         val mockApi = mockk<LaunchesApi> {
             coEvery { getRocketLaunch(any()) } answers {
                 throw NetworkErrorException()

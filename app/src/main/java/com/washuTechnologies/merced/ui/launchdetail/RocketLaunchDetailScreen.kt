@@ -12,7 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.washuTechnologies.merced.R
 import com.washuTechnologies.merced.ui.theme.MercedTheme
-import com.washuTechnologies.merced.util.PreviewData
+import com.washuTechnologies.merced.util.SampleData
 
 /**
  * Display a list of rocket launches.
@@ -64,7 +64,7 @@ private fun Preview() {
     MercedTheme {
         RocketLaunchDetailScreen(
             rocketLaunchState = RocketLaunchUiState.Success(
-                PreviewData.rocketLaunch,
+                SampleData.rocketLaunch,
             )
         )
     }
