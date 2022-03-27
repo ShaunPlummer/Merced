@@ -10,4 +10,8 @@ object MockHelper {
     fun mockApi(rocketLaunch: RocketLaunch) = mockk<LaunchesApi> {
         coEvery { getRocketLaunch(rocketLaunch.id) } returns rocketLaunch
     }
+
+    fun mockApi(launchList: Array<RocketLaunch>) = mockk<LaunchesApi> {
+        coEvery { getRocketLaunchList() } returns launchList
+    }
 }
