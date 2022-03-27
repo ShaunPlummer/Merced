@@ -5,7 +5,7 @@ import com.washuTechnologies.merced.api.launches.LaunchesApi
 import com.washuTechnologies.merced.api.launches.RocketLaunchRepository
 import com.washuTechnologies.merced.ui.launchlist.LaunchListUiState
 import com.washuTechnologies.merced.ui.launchlist.LaunchListViewModel
-import com.washuTechnologies.merced.ui.launchlist.LaunchSampleData
+import com.washuTechnologies.merced.util.LaunchSampleData
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
