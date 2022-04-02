@@ -57,8 +57,8 @@ class RocketLaunchDetailViewModelIntegrationTest {
         ).run {
             val actual = uiState.take(2).last()
             assertEquals(
-                expectedLaunch,
-                (actual as? RocketLaunchUiState.Success)?.launch
+                expectedLaunch.name,
+                (actual as? RocketLaunchUiState.Success)?.name
             )
         }
     }

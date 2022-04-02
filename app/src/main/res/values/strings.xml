@@ -3,4 +3,5 @@
     <string name="error_generic_message">Error</string>
     <string name="loading_generic_message">Loading</string>
     <string name="invalid_launch_id_message">Loading</string>
+    <string name="launch_image_content_description">Image of the rocket launch</string>
 </resources>
