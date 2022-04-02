@@ -87,4 +87,25 @@ class RocketLaunchDetailViewModelIntegrationTest {
             )
         }
     }
+
+    @Test
+    fun `when a launch date is present then it is formatted based on a the locale`() = runTest() {
+        val expectedLaunch = SampleData.rocketLaunch
+        val mockApi = mockApi(expectedLaunch)
+        val mockSavedState = mockk<SavedStateHandle> {
+            every { get<String>(any()) } returns expectedLaunch.id
+        }
+
+        RocketLaunchViewModel(
+            RocketLaunchRepository(mockApi),
+            mockSavedState,
+            StandardTestDispatcher(testScheduler)
+        ).run {
+            val actual = uiState.take(2).last()
+            assertEquals(
+                "Fri, 24 March 2006",// 2006-03-24T22:30:00.000Z
+                (actual as? RocketLaunchUiState.Success)?.launchDate
+            )
+        }
+    }
 }

@@ -28,4 +28,10 @@ data class RocketLaunch(
     fun findImage(): String? =
         links?.flickr?.small?.firstOrNull() ?: links?.flickr?.original?.firstOrNull()
 
+    companion object {
+        /**
+         * UTC launch date/time in ISO 8601 format
+         */
+        const val UTC_FORMAT = "yyyyy-MM-dd'T'HH:mm:ss.SSS"
+    }
 }

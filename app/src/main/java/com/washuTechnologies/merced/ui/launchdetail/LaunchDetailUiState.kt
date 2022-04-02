@@ -1,6 +1,7 @@
 package com.washuTechnologies.merced.ui.launchdetail
 
 import com.washuTechnologies.merced.api.launches.RocketLaunch
+import com.washuTechnologies.merced.util.DateHelper
 
 /**
  * The various UI states of the rocket launch list screen.
@@ -13,7 +14,8 @@ sealed class RocketLaunchUiState {
     data class Success(
         val name: String,
         val image: String?,
-        val details: String?
+        val details: String?,
+        val launchDate: String
     ) : RocketLaunchUiState()
 
     /**
@@ -39,7 +41,8 @@ sealed class RocketLaunchUiState {
         fun fromRocketLaunch(launch: RocketLaunch) = Success(
             name = launch.name,
             image = launch.findImage(),
-            details = launch.details
+            details = launch.details,
+            launchDate = DateHelper.utcLaunchDateToDisplay(launch.dateUTC)
         )
     }
 }

@@ -20,6 +20,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -75,17 +76,22 @@ fun RocketLaunchDetailScreen(
 @Composable
 fun RocketDetail(modifier: Modifier = Modifier, launch: RocketLaunchUiState.Success) {
     Column(
-        modifier = modifier,
+        modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Header(launchName = launch.name, photo = launch.image)
+        Header(
+            modifier = Modifier.fillMaxWidth(),
+            launchName = launch.name,
+            launchDate = launch.launchDate,
+            photo = launch.image
+        )
+        Spacer(modifier = Modifier.height(24.dp))
         Text(text = launch.details ?: "", style = MaterialTheme.typography.body1)
-        Spacer(modifier = Modifier.height(50.dp))
     }
 }
 
 @Composable
-fun Header(modifier: Modifier = Modifier, launchName: String, photo: String?) {
+fun Header(modifier: Modifier = Modifier, launchName: String, launchDate: String, photo: String?) {
     if (photo != null) {
         Row(modifier = modifier) {
             AsyncImage(
@@ -104,6 +110,7 @@ fun Header(modifier: Modifier = Modifier, launchName: String, photo: String?) {
         }
     }
     Text(text = launchName, style = MaterialTheme.typography.h3)
+    Text(text = launchDate, style = MaterialTheme.typography.subtitle1, textAlign = TextAlign.End)
 }
 
 @Preview(
