@@ -11,7 +11,6 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -33,7 +32,6 @@ class LaunchListViewModel @Inject constructor(
     init {
         viewModelScope.launch(dispatcher) {
             launchRepository.getLaunchList().collect {
-                Timber.d("new rocket launch")
                 when (it) {
                     is Result.Success -> _uiState.emit(LaunchListUiState.Success(it.result))
                     is Result.Loading -> _uiState.emit(LaunchListUiState.Loading)

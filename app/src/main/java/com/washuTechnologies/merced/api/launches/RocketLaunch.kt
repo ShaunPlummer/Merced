@@ -15,5 +15,27 @@ data class RocketLaunch(
     @Json(name = "name")
     val name: String,
     @Json(name = "date_utc")
-    val dateUTC: String
-)
+    val dateUTC: String,
+    @Json(name = "static_fire_date_utc")
+    val staticFireDateUTC: String?,
+    @Json(name = "details")
+    val details: String? = null,
+    @Json(name = "links")
+    val links: Links? = null,
+    @Json(name = "launchpad")
+    val launchpad: String? = null
+) {
+
+    /**
+     * Retrieves the first image of the launch if any are present.
+     */
+    fun findImage(): String? =
+        links?.flickr?.small?.firstOrNull() ?: links?.flickr?.original?.firstOrNull()
+
+    companion object {
+        /**
+         * UTC launch date/time in ISO 8601 format
+         */
+        const val UTC_FORMAT = "yyyyy-MM-dd'T'HH:mm:ss.SSS"
+    }
+}
