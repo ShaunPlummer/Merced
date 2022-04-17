@@ -3,5 +3,13 @@
     <string name="error_generic_message">Error</string>
     <string name="loading_generic_message">Loading</string>
     <string name="invalid_launch_id_message">Loading</string>
-    <string name="launch_image_content_description">Image of the rocket launch</string>
+    <string name="launch_image_content_description">Image of the rocket launching</string>
+    <string name="launch_detail_heading">Info</string>
+    <string name="launch_date_heading">Launch Date</string>
+    <string name="static_fire_date_heading">Static Fire Date</string>
+    <string name="launch_links_heading">Links</string>
+    <string name="link_wiki">Wiki</string>
+    <string name="link_press_kit">Press Kit</string>
+    <string name="link_article">Article</string>
+    <string name="link_youtube">Youtube</string>
 </resources>

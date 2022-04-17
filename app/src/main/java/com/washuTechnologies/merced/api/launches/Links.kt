@@ -18,7 +18,11 @@ data class Links(
     @Json(name = "article")
     val article: String? = null,
     @Json(name = "wikipedia")
-    val wikipedia: String? = null
+    val wikipedia: String? = null,
+    @Json(name = "reddit")
+    val reddit: Reddit? = null,
+    @Json(name = "youtube_id")
+    val videoLink: String? = null
 )
 
 @JsonClass(generateAdapter = true)
@@ -59,4 +63,17 @@ data class Patch(
     val small: String? = null,
     @Json(name = "large")
     val large: String? = null
+)
+
+@JsonClass(generateAdapter = true)
+data class Reddit(
+    @Json(name = "campaign")
+    val campaign: String? = null,
+    @Json(name = "launch")
+    val launch: String? = null,
+    @Json(name = "recovery")
+    val recovery: String? = null,
+
+    @Json(name = "media")
+    val media: String? = null
 )

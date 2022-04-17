@@ -15,7 +15,10 @@ sealed class RocketLaunchUiState {
         val name: String,
         val image: String?,
         val details: String?,
-        val launchDate: String
+        val launchDate: String,
+        val staticFireDate: String?,
+        val links: LaunchLinks,
+        val launchLocation: String?,
     ) : RocketLaunchUiState()
 
     /**
@@ -42,7 +45,24 @@ sealed class RocketLaunchUiState {
             name = launch.name,
             image = launch.findImage(),
             details = launch.details,
-            launchDate = DateHelper.utcLaunchDateToDisplay(launch.dateUTC)
+            launchDate = DateHelper.utcLaunchDateToDisplay(launch.dateUTC),
+            staticFireDate = launch.staticFireDateUTC?.let { DateHelper.utcLaunchDateToDisplay(it) },
+            launchLocation = launch.launchpad,
+            links = LaunchLinks(
+                wikipedia = launch.links?.wikipedia,
+                article = launch.links?.article,
+                pressKit = launch.links?.presskit,
+                video = launch.links?.videoLink?.let {
+                    "http://www.youtube.com/watch?v=${it}"
+                }
+            )
         )
     }
 }
+
+data class LaunchLinks(
+    val article: String? = null,
+    val wikipedia: String? = null,
+    val pressKit: String? = null,
+    val video: String? = null
+)

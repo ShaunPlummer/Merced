@@ -16,10 +16,14 @@ data class RocketLaunch(
     val name: String,
     @Json(name = "date_utc")
     val dateUTC: String,
+    @Json(name = "static_fire_date_utc")
+    val staticFireDateUTC: String?,
     @Json(name = "details")
     val details: String? = null,
     @Json(name = "links")
-    val links: Links? = null
+    val links: Links? = null,
+    @Json(name = "launchpad")
+    val launchpad: String? = null
 ) {
 
     /**
