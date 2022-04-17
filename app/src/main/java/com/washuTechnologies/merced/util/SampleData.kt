@@ -43,7 +43,7 @@ object SampleData {
                     presskit = "http://www.spacex.com/sites/spacex/files/falcon1presskit.pdf",
                     article = "https://spaceflightnow.com/2006/03/24/falcon-1-launch-2006-03-24/",
                     wikipedia = "https://en.wikipedia.org/wiki/Falcon_1",
-                    videoLink = "https://www.youtube.com/watch?v=0a_00nJ_Y88",
+                    videoLink = "0a_00nJ_Y88",
                 )
             ),
             RocketLaunch(

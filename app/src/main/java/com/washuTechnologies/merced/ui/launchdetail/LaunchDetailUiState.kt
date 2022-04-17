@@ -53,7 +53,7 @@ sealed class RocketLaunchUiState {
                 article = launch.links?.article,
                 pressKit = launch.links?.presskit,
                 video = launch.links?.videoLink?.let {
-                    "http://www.youtube.com/watch?v=${it}"
+                    "https://www.youtube.com/watch?v=${it}"
                 }
             )
         )
