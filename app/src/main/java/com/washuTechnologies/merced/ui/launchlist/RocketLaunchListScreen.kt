@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.washuTechnologies.merced.R
 import com.washuTechnologies.merced.api.launches.RocketLaunch
+import com.washuTechnologies.merced.ui.components.LoadingScreen
 import com.washuTechnologies.merced.ui.theme.MercedTheme
 import com.washuTechnologies.merced.util.SampleData
 import timber.log.Timber
@@ -59,7 +60,7 @@ fun RocketLaunchListScreen(
                 Text(text = stringResource(id = R.string.error_generic_message))
             }
             is LaunchListUiState.Loading -> {
-                Text(text = stringResource(id = R.string.loading_generic_message))
+                LoadingScreen()
             }
         }
     }

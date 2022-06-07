@@ -6,6 +6,7 @@ The project provides a series of examples implementations for various frameworks
 within Android development.
 
 <div align="center">
+    <img src="/screenshots/loading001.gif" width="260">
     <img src="/screenshots/launchList001.gif" width="260">
     <img src="/screenshots/pastLaunchDetail.png" width="260">
 </div>

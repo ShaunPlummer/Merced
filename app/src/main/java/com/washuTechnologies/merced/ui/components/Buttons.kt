@@ -57,7 +57,7 @@ fun LabeledIconButton(
 
 @Preview
 @Composable
-fun Preview() {
+private fun Preview() {
     LabeledIconButton(
         icon = Icons.Filled.Description,
         label = "Press Kit"

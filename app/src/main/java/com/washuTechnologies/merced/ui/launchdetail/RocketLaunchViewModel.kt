@@ -9,6 +9,7 @@ import com.washuTechnologies.merced.di.IoDispatcher
 import com.washuTechnologies.merced.ui.navigation.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -43,6 +44,9 @@ class RocketLaunchViewModel @Inject constructor(
                 _uiState.emit(RocketLaunchUiState.InvalidId)
                 return@launch
             }
+            // Prevent a flicker where the loading animation isn't displayed long enough to be seen
+            // Let users see the fancy animation for a moment.
+            delay(300)
             launchRepository.getRocketLaunch(launchId).collect {
                 when (it) {
                     is Result.Success -> _uiState.emit(RocketLaunchUiState.fromRocketLaunch(it.result))

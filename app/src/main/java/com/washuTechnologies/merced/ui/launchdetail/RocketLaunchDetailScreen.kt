@@ -40,6 +40,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.washuTechnologies.merced.R
+import com.washuTechnologies.merced.ui.components.LoadingScreen
 import com.washuTechnologies.merced.ui.components.MercedScaffold
 import com.washuTechnologies.merced.ui.components.WebLinkButton
 import com.washuTechnologies.merced.ui.theme.MercedTheme
@@ -78,7 +79,7 @@ fun RocketLaunchDetailScreen(
                 Text(text = stringResource(id = R.string.error_generic_message))
             }
             is RocketLaunchUiState.Loading -> {
-                Text(text = stringResource(id = R.string.loading_generic_message))
+                LoadingScreen()
             }
             RocketLaunchUiState.InvalidId -> {
                 Text(text = stringResource(id = R.string.invalid_launch_id_message))
