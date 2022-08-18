@@ -1,13 +1,18 @@
 package com.washuTechnologies.merced.api.launches
 
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 /**
  * Model object representing a spaceX rocket launch.
  */
+@Entity
 @JsonClass(generateAdapter = true)
 data class RocketLaunch(
+    @PrimaryKey
     @Json(name = "id")
     val id: String,
     @Json(name = "flight_number")
@@ -20,6 +25,7 @@ data class RocketLaunch(
     val staticFireDateUTC: String?,
     @Json(name = "details")
     val details: String? = null,
+    @Embedded
     @Json(name = "links")
     val links: Links? = null,
     @Json(name = "launchpad")

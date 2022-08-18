@@ -1,13 +1,19 @@
 package com.washuTechnologies.merced.api.launches
 
+import androidx.room.ColumnInfo
+import androidx.room.Embedded
+import androidx.room.Entity
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
+@Entity
 @JsonClass(generateAdapter = true)
 data class Links(
+    @Embedded
     @Json(name = "patch")
     val patch: Patch? = Patch(),
     @Json(name = "flickr")
+    @Embedded
     val flickr: Flickr? = Flickr(),
     @Json(name = "presskit")
     val presskit: String? = null,
@@ -20,13 +26,16 @@ data class Links(
     @Json(name = "wikipedia")
     val wikipedia: String? = null,
     @Json(name = "reddit")
+    @Embedded
     val reddit: Reddit? = null,
     @Json(name = "youtube_id")
     val videoLink: String? = null
 )
 
+@Entity
 @JsonClass(generateAdapter = true)
-data class Flickr(
+data class Flickr (
+    @ColumnInfo(name = "flicker_small")
     @Json(name = "small")
     val small: Array<String>? = null,
     @Json(name = "original")
@@ -57,14 +66,18 @@ data class Flickr(
     }
 }
 
+@Entity
 @JsonClass(generateAdapter = true)
 data class Patch(
+    @ColumnInfo(name = "patch_small")
     @Json(name = "small")
     val small: String? = null,
+    @ColumnInfo(name = "patch_large")
     @Json(name = "large")
     val large: String? = null
 )
 
+@Entity
 @JsonClass(generateAdapter = true)
 data class Reddit(
     @Json(name = "campaign")
