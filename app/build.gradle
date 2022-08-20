@@ -6,12 +6,12 @@ plugins {
 }
 
 android {
-    compileSdk 31
+    compileSdk 32
 
     defaultConfig {
         applicationId "com.washuTechnologies.merced"
         minSdk 21
-        targetSdk 31
+        targetSdk 32
         versionCode 1
         versionName "1.0.0"
 
@@ -61,7 +61,7 @@ dependencies {
     implementation "androidx.navigation:navigation-compose:$nav_version"
     implementation "com.google.accompanist:accompanist-systemuicontroller:0.24.3-alpha"
     implementation "com.jakewharton.timber:timber:5.0.1"
-    implementation "io.coil-kt:coil-compose:2.1.0"
+    implementation "io.coil-kt:coil-compose:2.2.0"
     implementation "com.airbnb.android:lottie-compose:$lottie_version"
 
     // Retrofit and moshi for API calls
