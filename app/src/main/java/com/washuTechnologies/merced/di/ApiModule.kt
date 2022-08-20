@@ -1,6 +1,6 @@
 package com.washuTechnologies.merced.di
 
-import com.washuTechnologies.merced.api.launches.LaunchesApi
+import com.washuTechnologies.merced.api.launches.LaunchesRemoteDatasource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,5 +11,5 @@ import dagger.hilt.components.SingletonComponent
 object ApiModule {
 
     @Provides
-    fun launchesApi(): LaunchesApi = LaunchesApi.create()
+    fun launchesApi(): LaunchesRemoteDatasource = LaunchesRemoteDatasource.create()
 }
