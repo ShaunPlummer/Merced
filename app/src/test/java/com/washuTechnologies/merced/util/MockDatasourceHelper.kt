@@ -1,6 +1,6 @@
 package com.washuTechnologies.merced.util
 
-import com.washuTechnologies.merced.api.launches.LaunchesApi
+import com.washuTechnologies.merced.api.launches.LaunchesRemoteDatasource
 import com.washuTechnologies.merced.api.launches.RocketLaunch
 import com.washuTechnologies.merced.database.launches.LaunchesLocalDatasource
 import com.washuTechnologies.merced.datasources.ConnectivityDatasource
@@ -15,7 +15,7 @@ object MockDatasourceHelper {
     fun launchesRemoteDatasource(launch: RocketLaunch) =
         launchesRemoteDatasource(launchList = arrayOf(launch))
 
-    fun launchesRemoteDatasource(launchList: Array<RocketLaunch> = arrayOf()) = mockk<LaunchesApi> {
+    fun launchesRemoteDatasource(launchList: Array<RocketLaunch> = arrayOf()) = mockk<LaunchesRemoteDatasource> {
         coEvery { getRocketLaunchList() } returns launchList
         coEvery { getRocketLaunch(any()) } answers {
             launchList.first() { it.id == args.first() }

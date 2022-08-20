@@ -19,7 +19,7 @@ private const val MAX_RETRY = 3L
  */
 @Singleton
 class RocketLaunchRepository @Inject constructor(
-    private val launchesApi: LaunchesApi,
+    private val remoteDatasource: LaunchesRemoteDatasource,
     private val localDatasource: LaunchesLocalDatasource,
     private val connectivityDatasource: ConnectivityDatasource
 ) {
@@ -43,7 +43,7 @@ class RocketLaunchRepository @Inject constructor(
     }
 
     private suspend fun queryApi() = flow<Result<Array<RocketLaunch>>> {
-        val list: Array<RocketLaunch> = launchesApi.getRocketLaunchList()
+        val list: Array<RocketLaunch> = remoteDatasource.getRocketLaunchList()
         Timber.d("${list.size} launches returned from api")
         val result = localDatasource.insertAll(list)
         Timber.d("${result.size} launches added to cache")
@@ -58,7 +58,7 @@ class RocketLaunchRepository @Inject constructor(
      */
     fun getRocketLaunch(launchId: String): Flow<Result<RocketLaunch>> = flow {
         emit(Result.Loading)
-        val launch = launchesApi.getRocketLaunch(launchId)
+        val launch = remoteDatasource.getRocketLaunch(launchId)
         Timber.d("Retrieved flight ${launch.name}, $launchId")
         emit(Result.Success(launch))
     }.catch { exception ->

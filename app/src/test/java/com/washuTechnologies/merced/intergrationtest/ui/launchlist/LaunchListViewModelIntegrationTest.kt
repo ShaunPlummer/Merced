@@ -1,7 +1,7 @@
 package com.washuTechnologies.merced.intergrationtest.ui.launchlist
 
 import android.accounts.NetworkErrorException
-import com.washuTechnologies.merced.api.launches.LaunchesApi
+import com.washuTechnologies.merced.api.launches.LaunchesRemoteDatasource
 import com.washuTechnologies.merced.ui.launchlist.LaunchListUiState
 import com.washuTechnologies.merced.ui.launchlist.LaunchListViewModel
 import com.washuTechnologies.merced.util.MockDatasourceHelper
@@ -82,7 +82,7 @@ class LaunchListViewModelIntegrationTest {
 
     @Test
     fun `when a launch list is not available then an error returned`() = runTest() {
-        val mockApi = mockk<LaunchesApi> {
+        val mockApi = mockk<LaunchesRemoteDatasource> {
             coEvery { getRocketLaunchList() } answers {
                 throw NetworkErrorException()
             }
