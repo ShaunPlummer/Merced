@@ -1,4 +1,4 @@
-package com.washuTechnologies.merced.api
+package com.washuTechnologies.merced.data
 
 /**
  * Sealed class to model the result of an operation.

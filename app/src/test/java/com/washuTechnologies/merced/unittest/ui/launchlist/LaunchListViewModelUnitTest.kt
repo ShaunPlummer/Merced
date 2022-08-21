@@ -1,7 +1,7 @@
 package com.washuTechnologies.merced.unittest.ui.launchlist
 
-import com.washuTechnologies.merced.api.Result
-import com.washuTechnologies.merced.api.launches.RocketLaunchRepository
+import com.washuTechnologies.merced.data.Result
+import com.washuTechnologies.merced.data.launches.RocketLaunchRepository
 import com.washuTechnologies.merced.ui.launchlist.LaunchListUiState
 import com.washuTechnologies.merced.ui.launchlist.LaunchListViewModel
 import com.washuTechnologies.merced.util.SampleData

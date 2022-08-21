@@ -1,4 +1,4 @@
-package com.washuTechnologies.merced.datasources
+package com.washuTechnologies.merced.data.connectivity
 
 import android.net.ConnectivityManager
 import android.net.Network

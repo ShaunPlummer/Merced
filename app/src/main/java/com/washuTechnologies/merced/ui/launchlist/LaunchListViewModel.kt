@@ -2,15 +2,16 @@ package com.washuTechnologies.merced.ui.launchlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.washuTechnologies.merced.api.Result
-import com.washuTechnologies.merced.api.launches.RocketLaunch
-import com.washuTechnologies.merced.api.launches.RocketLaunchRepository
+import com.washuTechnologies.merced.data.Result
+import com.washuTechnologies.merced.data.launches.model.RocketLaunch
+import com.washuTechnologies.merced.data.launches.RocketLaunchRepository
 import com.washuTechnologies.merced.di.IoDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -32,6 +33,7 @@ class LaunchListViewModel @Inject constructor(
     init {
         viewModelScope.launch(dispatcher) {
             launchRepository.getLaunchList().collect {
+                Timber.d("Launch list state $it.")
                 when (it) {
                     is Result.Success -> _uiState.emit(LaunchListUiState.Success(it.result))
                     is Result.Loading -> _uiState.emit(LaunchListUiState.Loading)

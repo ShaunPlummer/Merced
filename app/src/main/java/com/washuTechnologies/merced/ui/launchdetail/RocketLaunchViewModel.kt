@@ -3,8 +3,8 @@ package com.washuTechnologies.merced.ui.launchdetail
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.washuTechnologies.merced.api.Result
-import com.washuTechnologies.merced.api.launches.RocketLaunchRepository
+import com.washuTechnologies.merced.data.Result
+import com.washuTechnologies.merced.data.launches.RocketLaunchRepository
 import com.washuTechnologies.merced.di.IoDispatcher
 import com.washuTechnologies.merced.ui.navigation.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel

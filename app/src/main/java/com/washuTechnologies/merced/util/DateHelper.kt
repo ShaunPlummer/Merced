@@ -1,6 +1,6 @@
 package com.washuTechnologies.merced.util
 
-import com.washuTechnologies.merced.api.launches.RocketLaunch
+import com.washuTechnologies.merced.data.launches.model.RocketLaunch
 import java.text.SimpleDateFormat
 import java.util.*
 

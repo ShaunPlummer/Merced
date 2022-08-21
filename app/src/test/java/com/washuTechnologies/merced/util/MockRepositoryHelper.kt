@@ -1,9 +1,9 @@
 package com.washuTechnologies.merced.util
 
-import com.washuTechnologies.merced.api.launches.LaunchesRemoteDatasource
-import com.washuTechnologies.merced.api.launches.RocketLaunchRepository
-import com.washuTechnologies.merced.database.launches.LaunchesLocalDatasource
-import com.washuTechnologies.merced.datasources.ConnectivityDatasource
+import com.washuTechnologies.merced.data.launches.datasources.LaunchesRemoteDatasource
+import com.washuTechnologies.merced.data.launches.RocketLaunchRepository
+import com.washuTechnologies.merced.data.launches.datasources.LaunchesLocalDatasource
+import com.washuTechnologies.merced.data.connectivity.ConnectivityDatasource
 
 object RepositoryHelper {
 

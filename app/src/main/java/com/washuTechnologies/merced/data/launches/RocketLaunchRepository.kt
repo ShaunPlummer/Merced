@@ -1,8 +1,10 @@
-package com.washuTechnologies.merced.api.launches
+package com.washuTechnologies.merced.data.launches
 
-import com.washuTechnologies.merced.api.Result
-import com.washuTechnologies.merced.database.launches.LaunchesLocalDatasource
-import com.washuTechnologies.merced.datasources.ConnectivityDatasource
+import com.washuTechnologies.merced.data.Result
+import com.washuTechnologies.merced.data.connectivity.ConnectivityDatasource
+import com.washuTechnologies.merced.data.launches.datasources.LaunchesLocalDatasource
+import com.washuTechnologies.merced.data.launches.datasources.LaunchesRemoteDatasource
+import com.washuTechnologies.merced.data.launches.model.RocketLaunch
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first

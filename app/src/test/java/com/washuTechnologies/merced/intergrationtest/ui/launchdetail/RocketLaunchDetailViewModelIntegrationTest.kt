@@ -2,7 +2,7 @@ package com.washuTechnologies.merced.intergrationtest.ui.launchdetail
 
 import android.accounts.NetworkErrorException
 import androidx.lifecycle.SavedStateHandle
-import com.washuTechnologies.merced.api.launches.LaunchesRemoteDatasource
+import com.washuTechnologies.merced.data.launches.datasources.LaunchesRemoteDatasource
 import com.washuTechnologies.merced.ui.launchdetail.RocketLaunchUiState
 import com.washuTechnologies.merced.ui.launchdetail.RocketLaunchViewModel
 import com.washuTechnologies.merced.util.MockDatasourceHelper.launchesRemoteDatasource
