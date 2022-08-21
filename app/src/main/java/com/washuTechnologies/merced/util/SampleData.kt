@@ -1,9 +1,9 @@
 package com.washuTechnologies.merced.util
 
-import com.washuTechnologies.merced.api.launches.Links
-import com.washuTechnologies.merced.api.launches.Patch
-import com.washuTechnologies.merced.api.launches.Reddit
-import com.washuTechnologies.merced.api.launches.RocketLaunch
+import com.washuTechnologies.merced.data.launches.model.Links
+import com.washuTechnologies.merced.data.launches.model.Patch
+import com.washuTechnologies.merced.data.launches.model.Reddit
+import com.washuTechnologies.merced.data.launches.model.RocketLaunch
 
 /**
  * Mock data for use in compose preview annotations.

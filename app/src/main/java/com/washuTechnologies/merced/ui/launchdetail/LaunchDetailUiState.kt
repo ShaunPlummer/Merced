@@ -1,6 +1,6 @@
 package com.washuTechnologies.merced.ui.launchdetail
 
-import com.washuTechnologies.merced.api.launches.RocketLaunch
+import com.washuTechnologies.merced.data.launches.model.RocketLaunch
 import com.washuTechnologies.merced.util.DateHelper
 
 /**

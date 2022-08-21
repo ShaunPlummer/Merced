@@ -1,7 +1,8 @@
-package com.washuTechnologies.merced.api.launches
+package com.washuTechnologies.merced.data.launches.datasources
 
 import com.squareup.moshi.Moshi
 import com.washuTechnologies.merced.BuildConfig
+import com.washuTechnologies.merced.data.launches.model.RocketLaunch
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

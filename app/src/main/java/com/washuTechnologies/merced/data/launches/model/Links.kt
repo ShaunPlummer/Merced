@@ -1,4 +1,4 @@
-package com.washuTechnologies.merced.api.launches
+package com.washuTechnologies.merced.data.launches.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Embedded

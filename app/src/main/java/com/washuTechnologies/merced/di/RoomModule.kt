@@ -2,7 +2,7 @@ package com.washuTechnologies.merced.di
 
 import android.content.Context
 import androidx.room.Room
-import com.washuTechnologies.merced.database.SpaceXDatabase
+import com.washuTechnologies.merced.data.database.SpaceXDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

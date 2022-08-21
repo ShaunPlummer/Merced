@@ -26,7 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.washuTechnologies.merced.R
-import com.washuTechnologies.merced.api.launches.RocketLaunch
+import com.washuTechnologies.merced.data.launches.model.RocketLaunch
 import com.washuTechnologies.merced.ui.components.LoadingScreen
 import com.washuTechnologies.merced.ui.theme.MercedTheme
 import com.washuTechnologies.merced.util.SampleData

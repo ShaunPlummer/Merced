@@ -1,6 +1,6 @@
 package com.washuTechnologies.merced.di
 
-import com.washuTechnologies.merced.api.launches.LaunchesRemoteDatasource
+import com.washuTechnologies.merced.data.launches.datasources.LaunchesRemoteDatasource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

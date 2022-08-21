@@ -1,4 +1,4 @@
-package com.washuTechnologies.merced.database.converters
+package com.washuTechnologies.merced.data.database.converters
 
 import androidx.room.TypeConverter
 
