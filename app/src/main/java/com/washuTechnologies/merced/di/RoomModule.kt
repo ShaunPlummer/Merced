@@ -8,12 +8,14 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object RoomModule {
 
     @Provides
+    @Singleton
     fun launchesDatabase(@ApplicationContext applicationContext: Context): SpaceXDatabase =
         Room.databaseBuilder(
             applicationContext,

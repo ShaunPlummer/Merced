@@ -4,15 +4,17 @@ import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import javax.inject.Inject
 import timber.log.Timber
 
 /**
  * Datasource making information about the mobile device connectivity state available to
  * other parts of the app.
  */
+@Singleton
 class ConnectivityDatasource @Inject constructor(
     connectivityManager: ConnectivityManager
 ) {
