@@ -3,7 +3,6 @@ package com.washuTechnologies.merced.ui.launchdetail
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.washuTechnologies.merced.data.Result
 import com.washuTechnologies.merced.data.launches.RocketLaunchRepository
 import com.washuTechnologies.merced.di.IoDispatcher
 import com.washuTechnologies.merced.ui.navigation.Screen
@@ -48,11 +47,13 @@ class RocketLaunchViewModel @Inject constructor(
             // Let users see the fancy animation for a moment.
             delay(300)
             launchRepository.getRocketLaunch(launchId).collect {
-                when (it) {
-                    is Result.Success -> _uiState.emit(RocketLaunchUiState.fromRocketLaunch(it.result))
-                    is Result.Loading -> _uiState.emit(RocketLaunchUiState.Loading)
-                    is Result.Error -> _uiState.emit(RocketLaunchUiState.Error)
+                Timber.d("Launch list state $it.")
+                val state = if (it != null) {
+                    RocketLaunchUiState.fromRocketLaunch(it)
+                } else {
+                    RocketLaunchUiState.Error
                 }
+                _uiState.emit(state)
             }
         }
     }
