@@ -1,9 +1,9 @@
 package com.washuTechnologies.merced.unittest.ui.launchlist
 
-import com.washuTechnologies.merced.data.Result
 import com.washuTechnologies.merced.data.launches.RocketLaunchRepository
 import com.washuTechnologies.merced.ui.launchlist.LaunchListUiState
 import com.washuTechnologies.merced.ui.launchlist.LaunchListViewModel
+import com.washuTechnologies.merced.usecases.GetRocketListUseCase
 import com.washuTechnologies.merced.util.SampleData
 import io.mockk.every
 import io.mockk.mockk
@@ -23,12 +23,12 @@ class LaunchListViewModelUnitTest {
     fun `when a launch list is available then it is returned`() = runTest() {
         val mockRepository = mockk<RocketLaunchRepository> {
             every { getLaunchList() } returns flow {
-                emit(Result.Success(SampleData.launchList))
+                emit(SampleData.launchList)
             }
         }
 
         LaunchListViewModel(
-            mockRepository,
+            GetRocketListUseCase(mockRepository),
             StandardTestDispatcher(testScheduler)
         ).run {
             val actual: LaunchListUiState = uiState.take(2).last()
@@ -40,15 +40,15 @@ class LaunchListViewModelUnitTest {
     }
 
     @Test
-    fun `when a launch list is not available then it is returned`() = runTest() {
+    fun `when a launch list is not available then an error is returned`() = runTest() {
         val mockRepository = mockk<RocketLaunchRepository> {
             every { getLaunchList() } returns flow {
-                emit(Result.Error)
+                emit(emptyArray())
             }
         }
 
         LaunchListViewModel(
-            mockRepository,
+            GetRocketListUseCase(mockRepository),
             StandardTestDispatcher(testScheduler)
         ).run {
             val actual: LaunchListUiState = uiState.take(2).last()

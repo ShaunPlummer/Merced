@@ -2,10 +2,9 @@ package com.washuTechnologies.merced.ui.launchlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.washuTechnologies.merced.data.Result
 import com.washuTechnologies.merced.data.launches.model.RocketLaunch
-import com.washuTechnologies.merced.data.launches.RocketLaunchRepository
 import com.washuTechnologies.merced.di.IoDispatcher
+import com.washuTechnologies.merced.usecases.GetRocketListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,7 +18,7 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class LaunchListViewModel @Inject constructor(
-    launchRepository: RocketLaunchRepository,
+    getRocketListUseCase: GetRocketListUseCase,
     @IoDispatcher dispatcher: CoroutineDispatcher
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<LaunchListUiState>(LaunchListUiState.Loading)
@@ -32,13 +31,14 @@ class LaunchListViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(dispatcher) {
-            launchRepository.getLaunchList().collect {
+            getRocketListUseCase().collect {
                 Timber.d("Launch list state $it.")
-                when (it) {
-                    is Result.Success -> _uiState.emit(LaunchListUiState.Success(it.result))
-                    is Result.Loading -> _uiState.emit(LaunchListUiState.Loading)
-                    is Result.Error -> _uiState.emit(LaunchListUiState.Error)
+                val state = if (it.isNotEmpty()) {
+                    LaunchListUiState.Success(it)
+                } else {
+                    LaunchListUiState.Error
                 }
+                _uiState.emit(state)
             }
         }
     }

@@ -8,11 +8,11 @@ import com.washuTechnologies.merced.data.connectivity.ConnectivityDatasource
 object RepositoryHelper {
 
     fun launchesRepository(
-        launchesRemoteDatasource: LaunchesRemoteDatasource = MockDatasourceHelper.launchesRemoteDatasource(),
+        remoteDatasource: LaunchesRemoteDatasource = MockDatasourceHelper.mockLaunchesRemoteDatasource(),
         localDatasource: LaunchesLocalDatasource = MockDatasourceHelper.mockLaunchesLocalSource(),
         connectivityDatasource: ConnectivityDatasource = MockDatasourceHelper.mockConnectivity()
     ) = RocketLaunchRepository(
-        remoteDatasource = launchesRemoteDatasource,
+        remoteDatasource = remoteDatasource,
         localDatasource = localDatasource,
         connectivityDatasource = connectivityDatasource
     )

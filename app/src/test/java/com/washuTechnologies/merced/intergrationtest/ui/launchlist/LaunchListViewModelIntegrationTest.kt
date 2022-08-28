@@ -4,7 +4,11 @@ import android.accounts.NetworkErrorException
 import com.washuTechnologies.merced.data.launches.datasources.LaunchesRemoteDatasource
 import com.washuTechnologies.merced.ui.launchlist.LaunchListUiState
 import com.washuTechnologies.merced.ui.launchlist.LaunchListViewModel
+import com.washuTechnologies.merced.usecases.GetRocketListUseCase
 import com.washuTechnologies.merced.util.MockDatasourceHelper
+import com.washuTechnologies.merced.util.MockDatasourceHelper.mockLaunchesRemoteDatasource
+import com.washuTechnologies.merced.util.MockDatasourceHelper.mockConnectivity
+import com.washuTechnologies.merced.util.MockDatasourceHelper.mockLaunchesLocalSource
 import com.washuTechnologies.merced.util.RepositoryHelper
 import com.washuTechnologies.merced.util.SampleData
 import io.mockk.coEvery
@@ -24,7 +28,9 @@ class LaunchListViewModelIntegrationTest {
     @Test
     fun `when a launch list is requested then loading is first returned`() = runTest() {
         LaunchListViewModel(
-            RepositoryHelper.launchesRepository(),
+            GetRocketListUseCase(
+                RepositoryHelper.launchesRepository()
+            ),
             StandardTestDispatcher(testScheduler)
         ).run {
             val actual: LaunchListUiState = uiState.first()
@@ -34,14 +40,21 @@ class LaunchListViewModelIntegrationTest {
 
     @Test
     fun `given the api returns a launch list then it is displayed`() = runTest() {
-        val remoteDatasource = MockDatasourceHelper.launchesRemoteDatasource(SampleData.launchList)
+        val remoteDatasource = mockLaunchesRemoteDatasource(SampleData.launchList)
+        val localDatasource = mockLaunchesLocalSource(emptyArray())
+        val launchRepo = RepositoryHelper.launchesRepository(
+            remoteDatasource = remoteDatasource,
+            localDatasource = localDatasource
+        )
+        // Given the remote datasource has results
+        // and the cache is empty
         LaunchListViewModel(
-            RepositoryHelper.launchesRepository(
-                launchesRemoteDatasource = remoteDatasource
-            ),
+            GetRocketListUseCase(launchRepo),
             StandardTestDispatcher(testScheduler)
         ).run {
+            // When ui state is emitted
             val actual: LaunchListUiState = uiState.take(2).last()
+            // Then a launch list is displayed
             assertTrue(
                 "No launch list found in result: $actual",
                 (actual as? LaunchListUiState.Success)?.launchList?.isNotEmpty() == true
@@ -52,54 +65,84 @@ class LaunchListViewModelIntegrationTest {
     @Test
     fun `given the internet is not connected then a cached list is returned`() =
         runTest() {
-            // given the local cache has less results than the api but the device is not
-            // connected to the internet.
-            val remoteDatasource = MockDatasourceHelper.mockLaunchesLocalSource(
-                SampleData.launchList.take(1).toTypedArray()
+            val localDatasource = mockLaunchesLocalSource(
+                SampleData.launchList
             )
-            val localDatasource = MockDatasourceHelper.launchesRemoteDatasource(
-                launchList = SampleData.launchList.take(2).toTypedArray()
+            val connectivity = mockConnectivity(false)
+            val launchRepo = RepositoryHelper.launchesRepository(
+                remoteDatasource = mockk(),
+                localDatasource = localDatasource,
+                connectivityDatasource = connectivity
             )
-            val connectivity = MockDatasourceHelper.mockConnectivity(false)
 
+            // Given the local datasource has launch information
+            // and the internet is not connected
             LaunchListViewModel(
-                RepositoryHelper.launchesRepository(
-                    localDatasource = remoteDatasource,
-                    launchesRemoteDatasource = localDatasource,
-                    connectivityDatasource = connectivity
-                ),
+                GetRocketListUseCase(launchRepo),
                 StandardTestDispatcher(testScheduler)
             ).run {
-                // when the UI consumes the state
-                val actual: LaunchListUiState = uiState.take(2).last()
+                // When ui state is emitted
+                val actual = uiState.take(2).last()
                 // Then the size matches the local data source
                 assertTrue(
                     "No launch list found in result: $actual",
-                    (actual as? LaunchListUiState.Success)?.launchList?.size == 1
+                    actual is LaunchListUiState.Success
                 )
             }
         }
 
     @Test
-    fun `when a launch list is not available then an error returned`() = runTest() {
-        val mockApi = mockk<LaunchesRemoteDatasource> {
+    fun `when a network error occurs a cached list is returned`() = runTest() {
+        val remoteDatasource = mockk<LaunchesRemoteDatasource> {
             coEvery { getRocketLaunchList() } answers {
                 throw NetworkErrorException()
             }
         }
+        val localDatasource = mockLaunchesLocalSource(SampleData.launchList)
+        val repo = RepositoryHelper.launchesRepository(
+            remoteDatasource = remoteDatasource,
+            localDatasource = localDatasource,
+            connectivityDatasource = mockConnectivity(true)
+        )
 
+        // Given there is no local list and the internet is  not connected
         LaunchListViewModel(
-            RepositoryHelper.launchesRepository(
-                launchesRemoteDatasource = mockApi,
-                connectivityDatasource = MockDatasourceHelper.mockConnectivity(true)
-            ),
+            GetRocketListUseCase(repo),
             StandardTestDispatcher(testScheduler)
         ).run {
-
-            val actual: LaunchListUiState = uiState.take(2).last()
+            // When ui state is emitted
+            val actual = uiState.take(2).last()
+            // Then it is an error
             assertTrue(
                 "UI state ($actual) is not an error",
-                actual is LaunchListUiState.Error
+                actual is LaunchListUiState.Success
+            )
+        }
+    }
+
+    @Test
+    fun `when the cache is out of date it is updated`() = runTest() {
+        val remoteDatasource = mockLaunchesRemoteDatasource(SampleData.launchList)
+        val localDatasource = mockLaunchesLocalSource(
+            SampleData.launchList.first()
+        )
+        val repo = RepositoryHelper.launchesRepository(
+            remoteDatasource = remoteDatasource,
+            localDatasource = localDatasource,
+            connectivityDatasource = mockConnectivity(true)
+        )
+
+        // Given there is cached data but the remote data source has an update
+        LaunchListViewModel(
+            GetRocketListUseCase(repo),
+            StandardTestDispatcher(testScheduler)
+        ).run {
+            // When ui state is emitted
+            val actual: LaunchListUiState = uiState.take(2).last()
+            // Then the launch list is up to date
+            assertTrue(
+                "Incorrect size launch list: $actual",
+                (actual as? LaunchListUiState.Success)?.launchList?.size == SampleData.launchList.size
             )
         }
     }
