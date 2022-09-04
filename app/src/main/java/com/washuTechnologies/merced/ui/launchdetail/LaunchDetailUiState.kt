@@ -60,6 +60,9 @@ sealed class RocketLaunchUiState {
     }
 }
 
+/**
+ * Links to additional information about the rocket launch.
+ */
 data class LaunchLinks(
     val article: String? = null,
     val wikipedia: String? = null,

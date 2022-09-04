@@ -18,6 +18,9 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
+/**
+ * Composable for use representing a link to an external resource.
+ */
 @Composable
 fun WebLinkButton(
     modifier: Modifier = Modifier,
@@ -35,7 +38,9 @@ fun WebLinkButton(
     )
 }
 
-
+/**
+ * Composable for use buttons with a leading icon.
+ */
 @Composable
 fun LabeledIconButton(
     modifier: Modifier = Modifier,

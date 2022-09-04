@@ -20,6 +20,9 @@ private val LightColorPalette = lightColors(
     secondary = BlueGrey200
 )
 
+/**
+ * Composable for the app theme.
+ */
 @Composable
 fun MercedTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
     val colors = if (darkTheme) {

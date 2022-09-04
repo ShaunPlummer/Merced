@@ -45,7 +45,7 @@ fun RocketLaunchListScreen(
 }
 
 @Composable
-fun RocketLaunchListScreen(
+private fun RocketLaunchListScreen(
     launchList: LaunchListUiState,
     onLaunchSelected: (String) -> Unit = {}
 ) {
