@@ -6,6 +6,9 @@ import androidx.room.Entity
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
+/**
+ * Links to additional resources and information about rocket launches.
+ */
 @Entity
 @JsonClass(generateAdapter = true)
 data class Links(
@@ -32,6 +35,9 @@ data class Links(
     val videoLink: String? = null
 )
 
+/**
+ * Links to Flickr resource about the rocket launch.
+ */
 @Entity
 @JsonClass(generateAdapter = true)
 data class Flickr (
@@ -66,6 +72,9 @@ data class Flickr (
     }
 }
 
+/**
+ * Links to images of the mission patch.
+ */
 @Entity
 @JsonClass(generateAdapter = true)
 data class Patch(
@@ -77,6 +86,9 @@ data class Patch(
     val large: String? = null
 )
 
+/**
+ * Links to reddit posts about the rocket launch.
+ */
 @Entity
 @JsonClass(generateAdapter = true)
 data class Reddit(
@@ -86,7 +98,6 @@ data class Reddit(
     val launch: String? = null,
     @Json(name = "recovery")
     val recovery: String? = null,
-
     @Json(name = "media")
     val media: String? = null
 )

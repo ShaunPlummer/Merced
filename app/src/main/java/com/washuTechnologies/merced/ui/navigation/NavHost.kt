@@ -11,6 +11,9 @@ import androidx.navigation.navArgument
 import com.washuTechnologies.merced.ui.launchdetail.RocketLaunchDetailScreen
 import com.washuTechnologies.merced.ui.launchlist.RocketLaunchListScreen
 
+/**
+ * Main navigation graph for the application and entry point.
+ */
 @Composable
 fun MercedNavGraph(
     modifier: Modifier = Modifier,

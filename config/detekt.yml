@@ -1,26 +1,12 @@
-config:
-  # is automatically ignored when custom-checks.jar is on the classpath
-  # however other CI checks use the argsfile where our plugin is not applied
-  # we need to care take of this by explicitly allowing this properties
-  excludes: 'custom-checks.*'
-
-custom-checks:
-  active: true
-  SpekTestDiscovery:
-    active: true
-    includes: ['**/test/**/*Spec.kt']
-
 comments:
   CommentOverPrivateProperty:
     active: true
   UndocumentedPublicClass:
     active: true
-    excludes: ['**/*.kt']
-    includes: ['**/detekt-api/src/main/**/api/*.kt']
+    excludes: ['**/di/**/*.kt', '**/di/*.kt']
   UndocumentedPublicFunction:
     active: true
-    excludes: ['**/*.kt']
-    includes: ['**/detekt-api/src/main/**/api/*.kt']
+    excludes: ['**/di/**/*.kt', '**/di/*.kt']
 
 complexity:
   StringLiteralDuplication:
@@ -43,6 +29,8 @@ complexity:
     excludes: ['**/test/**', '**/*.Test.kt', '**/*.Spec.kt']
   MethodOverloading:
     active: true
+  TooManyFunctions:
+    excludes: ['**/test/**', '**/functionalTest/**']
 
 coroutines:
   active: true
@@ -79,27 +67,21 @@ formatting:
   active: true
   android: false
   autoCorrect: true
-  AnnotationSpacing:
+  Filename:
+    active: false
+  FunctionReturnTypeSpacing:
     active: true
-  EnumEntryNameCase:
+  FunctionStartOfBodySpacing:
     active: true
   MaximumLineLength:
     active: false
-  MultiLineIfElse:
+  NullableTypeSpacing:
     active: true
-  NoEmptyFirstLineInMethodBlock:
+  ParameterListSpacing:
     active: true
-  PackageName:
+  SpacingBetweenFunctionNameAndOpeningParenthesis:
     active: true
-  SpacingAroundAngleBrackets:
-    active: true
-  SpacingAroundDoubleColon:
-    active: true
-  SpacingAroundUnaryOperator:
-    active: true
-  SpacingBetweenDeclarationsWithAnnotations:
-    active: true
-  SpacingBetweenDeclarationsWithComments:
+  TypeParameterListSpacing:
     active: true
 
 naming:
@@ -130,6 +112,10 @@ naming:
   VariableMinLength:
     active: true
 
+performance:
+  SpreadOperator:
+    excludes: ['**/test/**', '**/functionalTest/**']
+
 potential-bugs:
   AvoidReferentialEquality:
     active: true
@@ -137,6 +123,8 @@ potential-bugs:
     active: true
   DoubleMutabilityForCollection:
     active: false
+  ElseCaseInsteadOfExhaustiveWhen:
+    active: true
   ExitOutsideMain:
     active: false
   HasPlatformType:
@@ -160,6 +148,8 @@ potential-bugs:
 style:
   CanBeNonNullable:
     active: true
+  CascadingCallWrapping:
+    active: true
   ClassOrdering:
     active: true
   CollapsibleIfStatements:
@@ -182,9 +172,12 @@ style:
       - '@requiresTypeResolution'
     excludes: ['**/detekt-rules-style/**/ForbiddenComment.kt']
   ForbiddenImport:
-    active: true
+    active: false
     imports:
-      - 'org.assertj.core.api.Assertions'
+      - value: 'org.assertj.core.api.Assertions'
+        reason: 'Import Assertions.assertThat instead.'
+      - value: 'org.junit.jupiter.api.Assertions*'
+        reason: 'Use AssertJ assertions instead.'
   ForbiddenMethodCall:
     active: true
     methods:
@@ -193,6 +186,7 @@ style:
       - 'java.net.URL.openStream'
       - 'java.lang.Class.getResourceAsStream'
       - 'java.lang.ClassLoader.getResourceAsStream'
+      - 'org.jetbrains.kotlin.diagnostics.DiagnosticUtils.getLineAndColumnInPsiFile'
   ForbiddenVoid:
     active: true
   LibraryCodeMustSpecifyReturnType:
@@ -248,10 +242,10 @@ style:
   UntilInsteadOfRangeTo:
     active: true
   UnusedImports:
-    active: true
+    active: false # formatting already have this rule enabled
   UnusedPrivateMember:
     active: true
-    allowedNames: '(_|ignored|expected|Preview)'
+    allowedNames: '(_|ignored|expected)'
     ignoreAnnotated: ['Preview']
   UseAnyOrNoneInsteadOfFind:
     active: true
@@ -272,3 +266,6 @@ style:
   VarCouldBeVal:
     active: true
     ignoreAnnotated: ['Parameter']
+  WildcardImport:
+    active: true
+    excludeImports: []

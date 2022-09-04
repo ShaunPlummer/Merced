@@ -62,7 +62,7 @@ fun RocketLaunchDetailScreen(
 }
 
 @Composable
-fun RocketLaunchDetailScreen(
+private fun RocketLaunchDetailScreen(
     modifier: Modifier = Modifier,
     rocketLaunchState: RocketLaunchUiState
 ) {
@@ -89,7 +89,7 @@ fun RocketLaunchDetailScreen(
 }
 
 @Composable
-fun RocketDetail(modifier: Modifier = Modifier, launch: RocketLaunchUiState.Success) {
+private fun RocketDetail(modifier: Modifier = Modifier, launch: RocketLaunchUiState.Success) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -113,7 +113,7 @@ fun RocketDetail(modifier: Modifier = Modifier, launch: RocketLaunchUiState.Succ
 }
 
 @Composable
-fun Header(
+private fun Header(
     modifier: Modifier = Modifier,
     launchName: String,
     photo: String?
@@ -143,7 +143,7 @@ fun Header(
 }
 
 @Composable
-fun LaunchInfo(modifier: Modifier = Modifier, launch: RocketLaunchUiState.Success) {
+private fun LaunchInfo(modifier: Modifier = Modifier, launch: RocketLaunchUiState.Success) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -172,7 +172,7 @@ fun LaunchInfo(modifier: Modifier = Modifier, launch: RocketLaunchUiState.Succes
 }
 
 @Composable
-fun Links(modifier: Modifier = Modifier, links: LaunchLinks) {
+private fun Links(modifier: Modifier = Modifier, links: LaunchLinks) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -217,7 +217,7 @@ fun Links(modifier: Modifier = Modifier, links: LaunchLinks) {
 }
 
 @Composable
-fun LaunchDetail(
+private fun LaunchDetail(
     modifier: Modifier = Modifier,
     icon: ImageVector,
     label: String,

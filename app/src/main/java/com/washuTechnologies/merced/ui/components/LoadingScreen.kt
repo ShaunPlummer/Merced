@@ -17,6 +17,9 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.washuTechnologies.merced.R
 
+/**
+ * Composable to display an animated loading screen.
+ */
 @Composable
 fun LoadingScreen(modifier: Modifier = Modifier) {
     Column(
