@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.washuTechnologies.merced.data.AppState
 import com.washuTechnologies.merced.ui.launchdetail.RocketLaunchDetailScreen
 import com.washuTechnologies.merced.ui.launchlist.RocketLaunchListScreen
 
@@ -17,6 +18,7 @@ import com.washuTechnologies.merced.ui.launchlist.RocketLaunchListScreen
 @Composable
 fun MercedNavGraph(
     modifier: Modifier = Modifier,
+    appState: AppState,
     navController: NavHostController = rememberNavController(),
     startDestination: String = Screen.LaunchList.route
 ) {
@@ -26,7 +28,7 @@ fun MercedNavGraph(
         modifier = modifier
     ) {
         composable(Screen.LaunchList.route) {
-            RocketLaunchListScreen() {
+            RocketLaunchListScreen(appState) {
                 navController.navigate(Screen.LaunchDetail.create(it))
             }
         }

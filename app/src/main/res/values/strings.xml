@@ -12,4 +12,5 @@
     <string name="link_press_kit">Press Kit</string>
     <string name="link_article">Article</string>
     <string name="link_youtube">Youtube</string>
+    <string name="internet_not_connected_message">Looks like you\'re not connected to the internet. Launch information is not up to date as you are not connected to the internet</string>
 </resources>

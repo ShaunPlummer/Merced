@@ -33,7 +33,7 @@ class RocketLaunchRepository @Inject constructor(
     }
 
     private suspend fun checkForLaunchListUpdate() {
-        if (!connectivityDatasource.hasConnectivity.first()) {
+        if (!connectivityDatasource.isInternetConnected.first()) {
             Timber.e("Unable to sync launch list, not connected")
             return
         }
@@ -59,7 +59,7 @@ class RocketLaunchRepository @Inject constructor(
         }
 
     private suspend fun getRemoteLaunch(launchId: String) {
-        if (!connectivityDatasource.hasConnectivity.first()) {
+        if (!connectivityDatasource.isInternetConnected.first()) {
             Timber.e("Unable to sync launch list, not connected")
             return
         }

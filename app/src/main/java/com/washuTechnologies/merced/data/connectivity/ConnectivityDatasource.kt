@@ -7,6 +7,7 @@ import android.net.NetworkRequest
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
+import timber.log.Timber
 
 /**
  * Datasource making information about the mobile device connectivity state available to
@@ -16,21 +17,32 @@ class ConnectivityDatasource @Inject constructor(
     connectivityManager: ConnectivityManager
 ) {
 
-    private val _hasConnectivity = MutableStateFlow(false)
-    val hasConnectivity: Flow<Boolean>
-        get() = _hasConnectivity
+    private val _isInternetConnected = MutableStateFlow(false)
+
+    /**
+     * Internet connectivity state.
+     */
+    val isInternetConnected: Flow<Boolean>
+        get() = _isInternetConnected
 
     init {
         connectivityManager.registerNetworkCallback(networkRequest, object :
             ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network) {
                 super.onAvailable(network)
-                _hasConnectivity.value = true
+                Timber.d("Network available")
+                _isInternetConnected.value = true
             }
 
             override fun onLost(network: Network) {
                 super.onLost(network)
-                _hasConnectivity.value = false
+                Timber.d("Network lost")
+                _isInternetConnected.value = false
+            }
+
+            override fun onUnavailable() {
+                Timber.d("Network unavailable")
+                super.onUnavailable()
             }
         })
     }
