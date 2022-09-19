@@ -6,12 +6,12 @@ import com.washuTechnologies.merced.data.launches.model.RocketLaunch
 import com.washuTechnologies.merced.di.IoDispatcher
 import com.washuTechnologies.merced.usecases.GetRocketListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
 /**
  * View model for the list of rocket launches

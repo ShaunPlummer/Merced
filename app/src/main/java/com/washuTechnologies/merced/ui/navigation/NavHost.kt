@@ -38,7 +38,7 @@ fun MercedNavGraph(
                 type = NavType.StringType
             })
         ) {
-            RocketLaunchDetailScreen()
+            RocketLaunchDetailScreen(appState = appState)
         }
     }
 }

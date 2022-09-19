@@ -40,8 +40,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.washuTechnologies.merced.R
+import com.washuTechnologies.merced.data.AppState
 import com.washuTechnologies.merced.ui.components.LoadingScreen
 import com.washuTechnologies.merced.ui.components.MercedScaffold
+import com.washuTechnologies.merced.ui.components.NotConnectedCard
 import com.washuTechnologies.merced.ui.components.WebLinkButton
 import com.washuTechnologies.merced.ui.theme.MercedTheme
 import com.washuTechnologies.merced.util.SampleData
@@ -52,19 +54,22 @@ import com.washuTechnologies.merced.util.SampleData
 @Composable
 fun RocketLaunchDetailScreen(
     modifier: Modifier = Modifier,
-    viewModel: RocketLaunchViewModel = hiltViewModel()
+    viewModel: RocketLaunchViewModel = hiltViewModel(),
+    appState: AppState
 ) {
     val launchState = viewModel.uiState.collectAsState()
     RocketLaunchDetailScreen(
         modifier = modifier,
-        rocketLaunchState = launchState.value
+        rocketLaunchState = launchState.value,
+        isInternetConnected = appState.isInternetConnected
     )
 }
 
 @Composable
 private fun RocketLaunchDetailScreen(
     modifier: Modifier = Modifier,
-    rocketLaunchState: RocketLaunchUiState
+    rocketLaunchState: RocketLaunchUiState,
+    isInternetConnected: Boolean
 ) {
     Column(
         modifier = modifier
@@ -73,7 +78,10 @@ private fun RocketLaunchDetailScreen(
     ) {
         when (rocketLaunchState) {
             is RocketLaunchUiState.Success -> {
-                RocketDetail(launch = rocketLaunchState)
+                RocketDetail(
+                    launch = rocketLaunchState,
+                    isInternetConnected = isInternetConnected
+                )
             }
             is RocketLaunchUiState.Error -> {
                 Text(text = stringResource(id = R.string.error_generic_message))
@@ -89,13 +97,20 @@ private fun RocketLaunchDetailScreen(
 }
 
 @Composable
-private fun RocketDetail(modifier: Modifier = Modifier, launch: RocketLaunchUiState.Success) {
+private fun RocketDetail(
+    modifier: Modifier = Modifier,
+    launch: RocketLaunchUiState.Success,
+    isInternetConnected: Boolean
+) {
     Column(
         modifier = modifier
             .fillMaxWidth()
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        if (!isInternetConnected) {
+            NotConnectedCard()
+        }
         Header(
             modifier = Modifier.fillMaxWidth(),
             launchName = launch.name,
@@ -257,7 +272,8 @@ private fun Preview() {
     MercedTheme {
         MercedScaffold {
             RocketLaunchDetailScreen(
-                rocketLaunchState = RocketLaunchUiState.fromRocketLaunch(SampleData.rocketLaunch)
+                rocketLaunchState = RocketLaunchUiState.fromRocketLaunch(SampleData.rocketLaunch),
+                isInternetConnected = false
             )
         }
     }
