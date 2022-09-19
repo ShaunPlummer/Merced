@@ -36,7 +36,8 @@ data class RocketLaunch(
      * Retrieves the first image of the launch if any are present.
      */
     fun findImage(): String? =
-        links?.flickr?.small?.firstOrNull() ?: links?.flickr?.original?.firstOrNull()
+        links?.flickr?.small?.firstOrNull { it.isNotBlank() }
+            ?: links?.flickr?.original?.firstOrNull { it.isNotBlank() }
 
     companion object {
         /**
