@@ -3,16 +3,21 @@ package com.washuTechnologies.merced.intergrationtest.ui
 import com.washuTechnologies.merced.data.connectivity.ConnectivityRepository
 import com.washuTechnologies.merced.domain.connectivity.GetConnectivityStateUseCase
 import com.washuTechnologies.merced.ui.AppViewModel
+import com.washuTechnologies.merced.util.StandardTestDispatcherRule
 import com.washuTechnologies.merced.util.MockDatasourceHelper
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
+import org.junit.Rule
 import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class AppViewModelTest {
+
+    @get:Rule
+    val coroutineRule = StandardTestDispatcherRule()
 
     @Test
     fun `when connected the app state is correct`() = runTest {
