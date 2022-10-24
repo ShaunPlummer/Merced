@@ -1,0 +1,154 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "1bcf6c7236250ddc17924dae731f54e9",
+    "entities": [
+      {
+        "tableName": "RocketLaunch",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `flightNumber` INTEGER NOT NULL, `name` TEXT NOT NULL, `dateUTC` TEXT NOT NULL, `staticFireDateUTC` TEXT, `details` TEXT, `launchpad` TEXT, `presskit` TEXT, `webcast` TEXT, `youtubeId` TEXT, `article` TEXT, `wikipedia` TEXT, `videoLink` TEXT, `patch_small` TEXT, `patch_large` TEXT, `flicker_small` TEXT, `original` TEXT, `campaign` TEXT, `launch` TEXT, `recovery` TEXT, `media` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "flightNumber",
+            "columnName": "flightNumber",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dateUTC",
+            "columnName": "dateUTC",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "staticFireDateUTC",
+            "columnName": "staticFireDateUTC",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "details",
+            "columnName": "details",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "launchpad",
+            "columnName": "launchpad",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "links.presskit",
+            "columnName": "presskit",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "links.webcast",
+            "columnName": "webcast",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "links.youtubeId",
+            "columnName": "youtubeId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "links.article",
+            "columnName": "article",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "links.wikipedia",
+            "columnName": "wikipedia",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "links.videoLink",
+            "columnName": "videoLink",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "links.patch.small",
+            "columnName": "patch_small",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "links.patch.large",
+            "columnName": "patch_large",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "links.flickr.small",
+            "columnName": "flicker_small",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "links.flickr.original",
+            "columnName": "original",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "links.reddit.campaign",
+            "columnName": "campaign",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "links.reddit.launch",
+            "columnName": "launch",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "links.reddit.recovery",
+            "columnName": "recovery",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "links.reddit.media",
+            "columnName": "media",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1bcf6c7236250ddc17924dae731f54e9')"
+    ]
+  }
+}
