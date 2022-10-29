@@ -7,6 +7,8 @@ import com.washuTechnologies.merced.util.StandardTestDispatcherRule
 import com.washuTechnologies.merced.util.MockDatasourceHelper
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.last
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -48,7 +50,7 @@ class AppViewModelTest {
             GetConnectivityStateUseCase(connectivityRepo)
         ).run {
             // When app state is emitted
-            val state = appState.first()
+            val state = appState.take(2).last()
 
             // Then the connectivity state is correct
             assertFalse(state.isInternetConnected)
