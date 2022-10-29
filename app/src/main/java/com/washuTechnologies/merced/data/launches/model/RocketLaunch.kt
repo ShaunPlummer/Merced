@@ -20,7 +20,7 @@ data class RocketLaunch(
     @Json(name = "name")
     val name: String,
     @Json(name = "date_utc")
-    val dateUTC: String,
+    val launchDateUTC: String,
     @Json(name = "static_fire_date_utc")
     val staticFireDateUTC: String?,
     @Json(name = "details")

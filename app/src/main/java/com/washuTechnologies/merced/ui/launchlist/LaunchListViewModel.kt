@@ -8,8 +8,10 @@ import com.washuTechnologies.merced.usecases.GetRocketListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.transform
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -31,16 +33,23 @@ class LaunchListViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(dispatcher) {
-            getRocketListUseCase().collect {
-                Timber.d("Launch list state $it.")
-                val state = if (it.isNotEmpty()) {
-                    LaunchListUiState.Success(it)
-                } else {
-                    LaunchListUiState.Error
+            getRocketListUseCase()
+                .sortByLaunchDate()
+                .collect {
+                    Timber.d("Launch list state $it.")
+                    val state = if (it.isNotEmpty()) {
+                        LaunchListUiState.Success(it)
+                    } else {
+                        LaunchListUiState.Error
+                    }
+                    _uiState.emit(state)
                 }
-                _uiState.emit(state)
-            }
         }
+    }
+
+    private fun Flow<Array<RocketLaunch>>.sortByLaunchDate() = transform { list ->
+        list.sortByDescending { it.launchDateUTC }
+        emit(list)
     }
 }
 
