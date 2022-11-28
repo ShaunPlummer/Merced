@@ -24,6 +24,10 @@ import androidx.compose.material.icons.sharp.Movie
 import androidx.compose.material.icons.sharp.Public
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -40,8 +44,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.washuTechnologies.merced.R
+import com.washuTechnologies.merced.data.AppState
 import com.washuTechnologies.merced.ui.components.LoadingScreen
 import com.washuTechnologies.merced.ui.components.MercedScaffold
+import com.washuTechnologies.merced.ui.components.NotConnectedCard
 import com.washuTechnologies.merced.ui.components.WebLinkButton
 import com.washuTechnologies.merced.ui.theme.MercedTheme
 import com.washuTechnologies.merced.util.SampleData
@@ -52,19 +58,22 @@ import com.washuTechnologies.merced.util.SampleData
 @Composable
 fun RocketLaunchDetailScreen(
     modifier: Modifier = Modifier,
-    viewModel: RocketLaunchViewModel = hiltViewModel()
+    viewModel: RocketLaunchViewModel = hiltViewModel(),
+    appState: AppState
 ) {
     val launchState = viewModel.uiState.collectAsState()
     RocketLaunchDetailScreen(
         modifier = modifier,
-        rocketLaunchState = launchState.value
+        rocketLaunchState = launchState.value,
+        isInternetConnected = appState.isInternetConnected
     )
 }
 
 @Composable
 private fun RocketLaunchDetailScreen(
     modifier: Modifier = Modifier,
-    rocketLaunchState: RocketLaunchUiState
+    rocketLaunchState: RocketLaunchUiState,
+    isInternetConnected: Boolean
 ) {
     Column(
         modifier = modifier
@@ -73,7 +82,10 @@ private fun RocketLaunchDetailScreen(
     ) {
         when (rocketLaunchState) {
             is RocketLaunchUiState.Success -> {
-                RocketDetail(launch = rocketLaunchState)
+                RocketDetail(
+                    launch = rocketLaunchState,
+                    isInternetConnected = isInternetConnected
+                )
             }
             is RocketLaunchUiState.Error -> {
                 Text(text = stringResource(id = R.string.error_generic_message))
@@ -89,17 +101,24 @@ private fun RocketLaunchDetailScreen(
 }
 
 @Composable
-private fun RocketDetail(modifier: Modifier = Modifier, launch: RocketLaunchUiState.Success) {
+private fun RocketDetail(
+    modifier: Modifier = Modifier,
+    launch: RocketLaunchUiState.Success,
+    isInternetConnected: Boolean
+) {
     Column(
         modifier = modifier
             .fillMaxWidth()
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        if (!isInternetConnected) {
+            NotConnectedCard()
+        }
         Header(
             modifier = Modifier.fillMaxWidth(),
             launchName = launch.name,
-            photo = launch.image
+            imageUrl = launch.image
         )
         Spacer(modifier = Modifier.height(16.dp))
         Text(
@@ -116,30 +135,37 @@ private fun RocketDetail(modifier: Modifier = Modifier, launch: RocketLaunchUiSt
 private fun Header(
     modifier: Modifier = Modifier,
     launchName: String,
-    photo: String?
+    imageUrl: String?
 ) {
-    if (photo != null) {
-        Row(modifier = modifier) {
+    Column(modifier = modifier) {
+        // If image loading fails remove it from the composition
+        // Better support offline mode where the launch info may be available
+        // but the imager has not previously been cached.
+        var imageLoadFiled by remember { mutableStateOf(false) }
+        if (imageUrl != null && !imageLoadFiled) {
             AsyncImage(
                 modifier = Modifier
                     .heightIn(max = 180.dp)
                     .fillMaxWidth()
                     .clip(shape = MaterialTheme.shapes.medium),
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data(photo)
+                    .data(imageUrl)
                     .crossfade(300)
                     .build(),
                 placeholder = painterResource(R.drawable.image_placeholder),
                 contentDescription = stringResource(R.string.launch_image_content_description),
                 contentScale = ContentScale.Crop,
+                onError = {
+                    imageLoadFiled = true
+                }
             )
         }
+        Text(
+            text = launchName,
+            style = MaterialTheme.typography.h3,
+            textAlign = TextAlign.Center
+        )
     }
-    Text(
-        text = launchName,
-        style = MaterialTheme.typography.h3,
-        textAlign = TextAlign.Center
-    )
 }
 
 @Composable
@@ -257,7 +283,8 @@ private fun Preview() {
     MercedTheme {
         MercedScaffold {
             RocketLaunchDetailScreen(
-                rocketLaunchState = RocketLaunchUiState.fromRocketLaunch(SampleData.rocketLaunch)
+                rocketLaunchState = RocketLaunchUiState.fromRocketLaunch(SampleData.rocketLaunch),
+                isInternetConnected = false
             )
         }
     }

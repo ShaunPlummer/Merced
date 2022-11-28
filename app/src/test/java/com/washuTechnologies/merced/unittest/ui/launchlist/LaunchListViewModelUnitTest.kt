@@ -28,7 +28,7 @@ class LaunchListViewModelUnitTest {
         }
 
         LaunchListViewModel(
-            GetRocketListUseCase(mockRepository),
+            GetRocketListUseCase(mockRepository, StandardTestDispatcher(testScheduler)),
             StandardTestDispatcher(testScheduler)
         ).run {
             val actual: LaunchListUiState = uiState.take(2).last()
@@ -48,7 +48,7 @@ class LaunchListViewModelUnitTest {
         }
 
         LaunchListViewModel(
-            GetRocketListUseCase(mockRepository),
+            GetRocketListUseCase(mockRepository, StandardTestDispatcher(testScheduler)),
             StandardTestDispatcher(testScheduler)
         ).run {
             val actual: LaunchListUiState = uiState.take(2).last()

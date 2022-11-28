@@ -20,7 +20,7 @@ data class RocketLaunch(
     @Json(name = "name")
     val name: String,
     @Json(name = "date_utc")
-    val dateUTC: String,
+    val launchDateUTC: String,
     @Json(name = "static_fire_date_utc")
     val staticFireDateUTC: String?,
     @Json(name = "details")
@@ -36,7 +36,8 @@ data class RocketLaunch(
      * Retrieves the first image of the launch if any are present.
      */
     fun findImage(): String? =
-        links?.flickr?.small?.firstOrNull() ?: links?.flickr?.original?.firstOrNull()
+        links?.flickr?.small?.firstOrNull { it.isNotBlank() }
+            ?: links?.flickr?.original?.firstOrNull { it.isNotBlank() }
 
     companion object {
         /**

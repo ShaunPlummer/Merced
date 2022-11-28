@@ -45,7 +45,7 @@ sealed class RocketLaunchUiState {
             name = launch.name,
             image = launch.findImage(),
             details = launch.details,
-            launchDate = DateHelper.utcLaunchDateToDisplay(launch.dateUTC),
+            launchDate = DateHelper.utcLaunchDateToDisplay(launch.launchDateUTC),
             staticFireDate = launch.staticFireDateUTC?.let { DateHelper.utcLaunchDateToDisplay(it) },
             launchLocation = launch.launchpad,
             links = LaunchLinks(

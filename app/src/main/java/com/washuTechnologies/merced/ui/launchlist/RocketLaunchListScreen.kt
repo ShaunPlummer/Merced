@@ -26,8 +26,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.washuTechnologies.merced.R
+import com.washuTechnologies.merced.data.AppState
 import com.washuTechnologies.merced.data.launches.model.RocketLaunch
 import com.washuTechnologies.merced.ui.components.LoadingScreen
+import com.washuTechnologies.merced.ui.components.NotConnectedCard
 import com.washuTechnologies.merced.ui.theme.MercedTheme
 import com.washuTechnologies.merced.util.SampleData
 import timber.log.Timber
@@ -37,24 +39,35 @@ import timber.log.Timber
  */
 @Composable
 fun RocketLaunchListScreen(
+    appState: AppState,
     viewModel: LaunchListViewModel = hiltViewModel(),
     onLaunchSelected: (String) -> Unit
 ) {
-    val list = viewModel.uiState.collectAsState()
-    RocketLaunchListScreen(launchList = list.value, onLaunchSelected = onLaunchSelected)
+    val list = viewModel.uiState.collectAsState(LaunchListUiState.Loading)
+    RocketLaunchListScreen(
+        isInternetConnected = appState.isInternetConnected,
+        launchList = list.value,
+        onLaunchSelected = onLaunchSelected
+    )
 }
 
 @Composable
 private fun RocketLaunchListScreen(
+    modifier: Modifier = Modifier,
+    isInternetConnected: Boolean,
     launchList: LaunchListUiState,
     onLaunchSelected: (String) -> Unit = {}
 ) {
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize()
     ) {
         when (launchList) {
             is LaunchListUiState.Success -> {
-                LaunchList(launchList = launchList.launchList, onLaunchSelected)
+                LaunchList(
+                    launchList = launchList.launchList,
+                    isInternetConnected = isInternetConnected,
+                    onLaunchSelected = onLaunchSelected
+                )
             }
             is LaunchListUiState.Error -> {
                 Text(text = stringResource(id = R.string.error_generic_message))
@@ -69,9 +82,15 @@ private fun RocketLaunchListScreen(
 @Composable
 private fun LaunchList(
     launchList: Array<RocketLaunch>,
+    isInternetConnected: Boolean,
     onLaunchSelected: (String) -> Unit
 ) {
     LazyColumn {
+        item {
+            if (!isInternetConnected) {
+                NotConnectedCard()
+            }
+        }
         items(items = launchList) { item ->
             LaunchSummary(
                 modifier = Modifier.clickable {
@@ -132,6 +151,7 @@ private fun LaunchNumber(modifier: Modifier = Modifier, flightNumber: Int) {
 private fun Preview() {
     MercedTheme {
         RocketLaunchListScreen(
+            isInternetConnected = false,
             launchList = LaunchListUiState.Success(SampleData.launchList)
         )
     }
@@ -142,6 +162,7 @@ private fun Preview() {
 private fun LoadingPreview() {
     MercedTheme {
         RocketLaunchListScreen(
+            isInternetConnected = true,
             launchList = LaunchListUiState.Loading
         )
     }
@@ -152,6 +173,7 @@ private fun LoadingPreview() {
 private fun ErrorPreview() {
     MercedTheme {
         RocketLaunchListScreen(
+            isInternetConnected = false,
             launchList = LaunchListUiState.Error
         )
     }

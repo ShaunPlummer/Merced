@@ -28,7 +28,7 @@ object MockDatasourceHelper {
 
     fun mockConnectivity(connectivityState: Flow<Boolean> = flow { emit(true) }) =
         mockk<ConnectivityDatasource> {
-            every { hasConnectivity } returns connectivityState
+            every { isInternetConnected } returns connectivityState
         }
 
     fun mockLaunchesLocalSource(launch: RocketLaunch) = mockLaunchesLocalSource(arrayOf(launch))
