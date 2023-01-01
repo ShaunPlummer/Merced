@@ -23,7 +23,6 @@ import androidx.compose.material.icons.sharp.Event
 import androidx.compose.material.icons.sharp.Movie
 import androidx.compose.material.icons.sharp.Public
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -36,7 +35,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.washuTechnologies.merced.R
@@ -47,22 +45,10 @@ import com.washuTechnologies.merced.ui.theme.MercedTheme
 import com.washuTechnologies.merced.util.SampleData
 
 /**
- * Display a list of rocket launches.
+ * Screen level composable for viewing detailed information about a single rocket launch.
  */
 @Composable
 fun RocketLaunchDetailScreen(
-    modifier: Modifier = Modifier,
-    viewModel: RocketLaunchViewModel = hiltViewModel()
-) {
-    val launchState = viewModel.uiState.collectAsState()
-    RocketLaunchDetailScreen(
-        modifier = modifier,
-        rocketLaunchState = launchState.value
-    )
-}
-
-@Composable
-private fun RocketLaunchDetailScreen(
     modifier: Modifier = Modifier,
     rocketLaunchState: RocketLaunchUiState
 ) {
