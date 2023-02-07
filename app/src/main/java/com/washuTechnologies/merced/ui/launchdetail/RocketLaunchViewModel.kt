@@ -5,15 +5,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.washuTechnologies.merced.data.launches.RocketLaunchRepository
 import com.washuTechnologies.merced.di.IoDispatcher
-import com.washuTechnologies.merced.ui.navigation.Screen
+import com.washuTechnologies.merced.ui.navigation.RocketLaunchArgs
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
 /**
  * View model for the list of rocket launches
@@ -24,9 +24,8 @@ class RocketLaunchViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     @IoDispatcher dispatcher: CoroutineDispatcher
 ) : ViewModel() {
-    private val launchId: String = savedStateHandle.get<String>(
-        Screen.LaunchDetail.launchIdKey
-    ) ?: ""
+    private val args = RocketLaunchArgs(savedStateHandle)
+    private val launchId by lazy { args.launchId }
 
     private val _uiState = MutableStateFlow<RocketLaunchUiState>(RocketLaunchUiState.Loading)
 
