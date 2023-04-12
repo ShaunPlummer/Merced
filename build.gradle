@@ -3,7 +3,7 @@ buildscript {
         nav_version = "2.5.3"
         compose_version = '1.4.0'
         material_version = '1.0.0-alpha07'
-        mockk_version = '1.13.4'
+        mockk_version = '1.13.5'
         detekt_version = '1.20.0-RC1'
         lottie_version = '6.0.0'
     }
