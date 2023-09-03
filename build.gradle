@@ -1,7 +1,7 @@
 buildscript {
     ext {
         nav_version = "2.5.3"
-        compose_version = '1.4.0'
+        compose_version = '1.5.0'
         material_version = '1.0.0-alpha07'
         detekt_version = '1.23.1'
         mockk_version = '1.13.7'
