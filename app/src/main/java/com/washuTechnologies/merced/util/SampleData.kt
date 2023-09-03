@@ -1,5 +1,6 @@
 package com.washuTechnologies.merced.util
 
+import com.washuTechnologies.merced.data.launches.model.Flickr
 import com.washuTechnologies.merced.data.launches.model.Links
 import com.washuTechnologies.merced.data.launches.model.Patch
 import com.washuTechnologies.merced.data.launches.model.Reddit
@@ -44,6 +45,9 @@ object SampleData {
                     article = "https://spaceflightnow.com/2006/03/24/falcon-1-launch-2006-03-24/",
                     wikipedia = "https://en.wikipedia.org/wiki/Falcon_1",
                     videoLink = "0a_00nJ_Y88",
+                    flickr = Flickr(small = null, original = null),
+                    webcast = null,
+                    youtubeId = null
                 )
             ),
             RocketLaunch(
