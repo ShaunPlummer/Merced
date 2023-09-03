@@ -4,7 +4,7 @@ buildscript {
         compose_version = '1.4.0'
         material_version = '1.0.0-alpha07'
         mockk_version = '1.13.5'
-        detekt_version = '1.20.0-RC1'
+        detekt_version = '1.23.1'
         lottie_version = '6.0.1'
     }
     dependencies {
@@ -21,8 +21,8 @@ dependencies {
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.0")
 }
 detekt {
-    config = files("$projectDir/config/detekt.yml")
-    source = files("app/src/main")
+    config.from("$projectDir/config/detekt.yml")
+    source.setFrom("app/src/main")
 }
 
 
@@ -34,6 +34,6 @@ tasks.named("detekt").configure {
 }
 
 
-task clean(type: Delete) {
+tasks.register('clean', Delete) {
     delete rootProject.buildDir
 }
