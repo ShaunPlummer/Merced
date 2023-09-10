@@ -14,25 +14,25 @@ import com.squareup.moshi.JsonClass
 data class Links(
     @Embedded
     @Json(name = "patch")
-    val patch: Patch? = Patch(),
+    val patch: Patch?,
     @Json(name = "flickr")
     @Embedded
-    val flickr: Flickr? = Flickr(),
+    val flickr: Flickr?,
     @Json(name = "presskit")
-    val presskit: String? = null,
+    val presskit: String?,
     @Json(name = "webcast")
-    val webcast: String? = null,
+    val webcast: String?,
     @Json(name = "youtubeId")
-    val youtubeId: String? = null,
+    val youtubeId: String?,
     @Json(name = "article")
-    val article: String? = null,
+    val article: String?,
     @Json(name = "wikipedia")
-    val wikipedia: String? = null,
+    val wikipedia: String?,
     @Json(name = "reddit")
     @Embedded
-    val reddit: Reddit? = null,
+    val reddit: Reddit?,
     @Json(name = "youtube_id")
-    val videoLink: String? = null
+    val videoLink: String?
 )
 
 /**
@@ -43,9 +43,9 @@ data class Links(
 data class Flickr (
     @ColumnInfo(name = "flicker_small")
     @Json(name = "small")
-    val small: Array<String>? = null,
+    val small: Array<String>?,
     @Json(name = "original")
-    val original: Array<String>? = null,
+    val original: Array<String>?,
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -80,10 +80,10 @@ data class Flickr (
 data class Patch(
     @ColumnInfo(name = "patch_small")
     @Json(name = "small")
-    val small: String? = null,
+    val small: String?,
     @ColumnInfo(name = "patch_large")
     @Json(name = "large")
-    val large: String? = null
+    val large: String?
 )
 
 /**
@@ -93,11 +93,11 @@ data class Patch(
 @JsonClass(generateAdapter = true)
 data class Reddit(
     @Json(name = "campaign")
-    val campaign: String? = null,
+    val campaign: String?,
     @Json(name = "launch")
-    val launch: String? = null,
+    val launch: String?,
     @Json(name = "recovery")
-    val recovery: String? = null,
+    val recovery: String?,
     @Json(name = "media")
-    val media: String? = null
+    val media: String?
 )
