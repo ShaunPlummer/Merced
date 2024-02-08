@@ -18,7 +18,7 @@ plugins {
     id 'io.gitlab.arturbosch.detekt' version '1.23.4'
 }
 dependencies {
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.4")
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.5")
 }
 detekt {
     config.from("$projectDir/config/detekt.yml")
