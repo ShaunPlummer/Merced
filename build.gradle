@@ -5,7 +5,7 @@ buildscript {
         material_version = '1.2.1'
         detekt_version = '1.23.1'
         mockk_version = '1.13.12'
-        lottie_version = '6.5.1'
+        lottie_version = '6.5.2'
     }
     dependencies {
         classpath 'com.google.dagger:hilt-android-gradle-plugin:2.52'
