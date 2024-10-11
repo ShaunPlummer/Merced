@@ -19,7 +19,7 @@ plugins {
     id 'org.jetbrains.kotlin.plugin.compose' version '2.0.0'
 }
 dependencies {
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.6")
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.7")
 }
 detekt {
     config.from("$projectDir/config/detekt.yml")
