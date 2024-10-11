@@ -4,7 +4,7 @@ buildscript {
         compose_version = '1.6.8'
         material_version = '1.2.1'
         detekt_version = '1.23.1'
-        mockk_version = '1.13.12'
+        mockk_version = '1.13.13'
         lottie_version = '6.5.1'
     }
     dependencies {
