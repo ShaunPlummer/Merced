@@ -53,7 +53,7 @@ android {
 
 dependencies {
     def room_version = "2.6.1"
-    def composeBom = platform('androidx.compose:compose-bom:2024.10.00')
+    def composeBom = platform('androidx.compose:compose-bom:2024.10.01')
 
     implementation composeBom
     androidTestImplementation composeBom
