@@ -80,7 +80,7 @@ dependencies {
     kapt("com.squareup.moshi:moshi-kotlin-codegen:1.15.1")
 
     // Dependency injection
-    implementation "com.google.dagger:hilt-android:2.52"
+    implementation "com.google.dagger:hilt-android:2.53"
     kapt "com.google.dagger:hilt-compiler:2.52"
     implementation "androidx.hilt:hilt-navigation-compose:1.2.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7"
